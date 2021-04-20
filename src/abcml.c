@@ -434,8 +434,6 @@ int     main(int argc, char **argv)
   ******************************************************/
     nparam = (attrition ? nagent + 1 : nagent);
 
-
-
     /*
      * If paramString != NULL, then parameters have been set on the
      * command line.  Parse them here.
