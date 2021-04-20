@@ -565,8 +565,6 @@ int     dopc(int np, real ** Fmean)
     static int *ndx;
     static real **evect = NULL;
 
-    printf("\nEnter dopc");
-
     /* these only need to be allocated once */
     if (eigval == NULL) {
 	eigval = (real *) mustalloc(np * sizeof(real));
