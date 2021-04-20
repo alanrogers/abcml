@@ -83,10 +83,7 @@ install : all
 	$(COPY) $(TARGETS) $(BIN)
 
 clean : 
-	$(RM) *.$(O) *~ all bone junk* core abcmlsrc.zip try dep $(TARGETS)
-
-abcmlsrc.zip :
-	zip -l abcmlsrc LICENSE Makefile.dos Makefile.unix *.c *.h -x try.*
+	$(RM) *.$(O) *~ all bone junk* core try depend $(TARGETS)
 
 depend :
 	echo '#Automatically generated dependency info' > depend
