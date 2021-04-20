@@ -1,5 +1,5 @@
 #  where the executables should be installed:
-BIN = ../bin
+BIN = $(HOME)/bin
 
 # define your compiler here:
 CC = gcc
