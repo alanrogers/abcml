@@ -135,7 +135,7 @@ struct results *alloc_results(void)
 	fprintf(stderr, "\nalloc_results: memory\n");
 	exit(1);
     }
-    r->p = (real *) mustalloc((size_t) (nparam * sizeof(real)));
+    r->p = (real *) mustalloc(((size_t) nparam) * sizeof(real));
     r->lnL = MISSING;
     r->ChiSq = MISSING;
     r->SCov = (real **) alloc2d(nparam, nparam, sizeof(real));
@@ -300,7 +300,7 @@ int     main(int argc, char **argv)
 
     if (nagent > 0)
 	agent = (struct agent **)
-	    mustalloc((size_t) (nagent * sizeof(struct agent *)));
+	    mustalloc(((size_t) nagent) * sizeof(struct agent *));
 
     /* process command line arguments */
     j = 0;
@@ -441,7 +441,7 @@ int     main(int argc, char **argv)
      * command line.  Parse them here.
      */
     if (paramString != NULL) {
-	p0 = (real *) mustalloc(nparam * sizeof(real));
+	p0 = (real *) mustalloc(((size_t) nparam) * sizeof(real));
 	/* point alpha, beta, and kappa at p0 */
 	set_mnemonics(&alpha, &beta, &kappa, &p0);
 	for (j = 0; j < nagent-1; j++) {
@@ -521,8 +521,8 @@ int     main(int argc, char **argv)
 
     /* allocations */
     r = alloc_results();
-    x = (real *) mustalloc((size_t) (nparam * sizeof(real)));
-    yyy = (real *) mustalloc((size_t) ((nparam + 1) * sizeof(real)));
+    x = (real *) mustalloc(((size_t) nparam) * sizeof(real));
+    yyy = (real *) mustalloc(((size_t) (nparam + 1)) * sizeof(real));
     Ey = (real *) mustalloc((size_t) (counts->npart * sizeof(real)));
     zscore = (real *) mustalloc((size_t) (counts->npart * sizeof(real)));
     ChiSqVec = (real *) mustalloc((size_t) (counts->ndataset * sizeof(real)));

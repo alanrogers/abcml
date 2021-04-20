@@ -1,5 +1,5 @@
 #  where the executables should be installed:
-BIN = ../bin/i386-linux
+BIN = ../bin
 
 # define your compiler here:
 CC = gcc
@@ -17,11 +17,11 @@ O = o
 E =
 
 # command line arguments for C compiler
-WARN1 = -Wall -Wtraditional -Wshadow -Wpointer-arith \
+WARN1 = -Wall -Wshadow -Wpointer-arith \
   -Wcast-qual -Wcast-align -Wwrite-strings  \
   -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes \
-  -Wmissing-declarations -Winline -pedantic
-WARN2 = -Wconversion -Wunused
+  -Wmissing-declarations -Winline -pedantic 
+WARN2 = -Wunused
 OPT1 = -DNDEBUG
 #OPT2 = -O
 CFLAGS = -g $(WARN1) $(WARN2) $(OPT1) $(OPT2)

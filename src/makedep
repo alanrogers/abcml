@@ -1,5 +1,0 @@
-# This script generates dependency information, and stores it
-# in a file called "dep".  This file is then imported by make
-#
-echo '#Automatically generated dependency info' > dep
-gcc -M *.c >> dep

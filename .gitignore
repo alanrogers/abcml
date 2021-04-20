@@ -1,3 +1,10 @@
 *~
 *.o
+depend
 abcml
+abcsim
+tabcfg
+mau2cfg
+cplcfg
+gnaw
+wgtcfg
