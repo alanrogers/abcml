@@ -65,7 +65,7 @@ void *mustalloc(size_t bytes)
   if(p==NULL)
   {
     fflush(stdout);
-    fprintf(stderr,"\nmustalloc: Can't allocate %d bytes of memory.\n",
+    fprintf(stderr,"\nmustalloc: Can't allocate %lu bytes of memory.\n",
 	    bytes);
     exit(1);
   }
