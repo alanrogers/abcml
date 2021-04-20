@@ -1,0 +1,21 @@
+#                                   SBONE
+#                            Simulate Bone Counts
+#                             by Alan R. Rogers
+#                                Version 0.1
+#                         Type `sbone -- ' for help
+
+#Cmd line: sbone toy.bdf home.cfg kill.cfg -K 10
+#Configured bones from file toy.bdf
+#Configured agent 0 from file home.cfg
+#Configured agent 1 from file kill.cfg
+### Simulated data
+# Number of animals in each assemblage: 10
+# alpha = 0.5 0.5
+# beta = 0: A fraction 1 of a whole animal will survive attrition
+
+  2 #number of parts
+  1 #number of data sets
+#label              DS0
+Skull                 7
+Femur                14
+

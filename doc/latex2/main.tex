@@ -1,0 +1,28 @@
+%-*-latex-*-
+\includeonly{intro,files,abcml}
+\renewcommand{\alpha}{\{\hbox{alpha}\}}
+\renewcommand{\beta}{\{\hbox{beta}\}}
+\renewcommand{\kappa}{\{\hbox{kappa}\}}
+\renewcommand{\mu}{\{\hbox{mu}\}}
+\documentclass{report}
+\usepackage{natbib,html}
+\begin{document}
+\author{Alan R. Rogers\thanks{Dept of Anthropology, University of Utah,
+Salt Lake City 84112. rogers@anthro.utah.edu}}
+\title{Analysis of Bone Counts by Maximum Likelihood: A Package of
+Computer Programs}
+\maketitle
+\tableofcontents
+\include{intro}
+\include{files}
+\include{abcml}
+\include{abcsim}
+\include{cplcfg}
+\include{mau2cfg}
+\include{tabcfg}
+\bibliographystyle{jarchsci}
+\bibliography{defs,arrpubs,bone,math,popecol}
+
+\end{document}
+
+

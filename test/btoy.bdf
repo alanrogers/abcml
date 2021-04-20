@@ -1,0 +1,6 @@
+4   #number of parts
+#label 		live	density
+Skull    	1	0.49
+Femur    	2	0.37
+Tibia           2       0.4
+Humerus         2       0.5

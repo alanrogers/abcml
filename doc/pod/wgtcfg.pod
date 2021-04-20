@@ -1,0 +1,98 @@
+=head1 WGTCFG Documentation File
+
+  usage: wgtcfg xxx.wgt xxx.cfg [options]
+  where:
+        .wgt file defines weights of skeletal parts
+        .cfg file configures agent
+   options may include:
+   -c x Mean number of extra carriers. Def: 0.25
+   -i x Inflate size by factor x. Def: 1
+   -l x Maximum load per carrier. Def: 20 kg
+   -m   Multiply weights by existing pr values?  Def: No
+
+Wgtcfg an agent configuration (.cfg) file, which provides a list of
+configurations (the term "configuration" is defined in F<abcml>).
+
+The program reads a .wgt file and a .cfg file (see F<files>).  The
+first of these provides the weight in grams of the meat attached to
+each skeletal part and the gross weight (i.e. the weight in grams of
+the meat and bone together).  The .cfg file provides a list of
+configurations of skeletal parts.
+
+The program then uses a built-in model to calculate the probability
+that each skeletal part will be transported.  This defines a new .cfg
+file, which is written as output in standard .cfg format.
+
+The model used to assign transport probabilities embodies the
+assumptions that foragers value meat more than bone and that their
+capacity for carrying a load is limited.  Thus, they prefer
+configurations that are light but rich in meat.  More specifically,
+the value of a configuration is taken to equal the energetic content
+of the meat attached minus the energetic cost of carrying it home.
+The probability that a configuration will be transported is taken to
+be proportional to its net energetic value.
+
+The the energetic cost of carrying a load is calculated using the
+formula of Pandolf, Givoni and Goldman (1977).  This calculation makes
+the following assumptions:
+
+=over 4
+
+=item *
+
+A forager weighs 55 kg.
+
+=item *
+
+While carrying a load, the foragers travels at 1 m per second (2.16
+miles per hour) along a flat dirt trail.  The dirt trail assumption
+implies that the "eta" parameter is equal to 1.1.
+
+=item *
+
+The load is carried for 2 hours.
+
+=item *
+
+A forager can carry at most 20 kg.
+
+=item *
+
+There is always at least 1 forager available to carry loads.  The
+number of additional foragers is a Poisson-distributed random variable
+with mean 0.25.
+
+=back
+
+The energetic value of a configuration was calculated by summing the
+weight of meat attached to each part to obtain the total meat weight
+of a configuration.  This weight is then converted from grams into
+kilojoules (of energy) by multiplying by 6600, a value that Anderson
+(1989) obtained for white-tailed deer.
+
+This program was used in the calculations described by Rogers
+(1999 unpublished). 
+
+=head2 References
+
+=over 4
+
+=item S<Anderson, B. A. 1989>
+
+I<Composition of Foods: Lamb, Veal, and Game Products>,
+US Department of Agriculture Agricultural Handbook Number 8-17.
+
+=item S<Binford, Lewis R. 1978>
+
+I<Nunamiut Ethnoarchaeology>. Academic Press, New York.
+
+=item S<Pandolf KB, Givoni B, Goldman RF. 1977.>
+
+Predicting energy expenditure with loads while standing or walking
+very slowly. I<Journal of Applied Physiology> 43(4):577-581.
+
+=item S<Rogers, Alan. 1999 unpublished>
+
+On the problem of equifinality in faunal analysis.  Submitted for publication.
+
+=back

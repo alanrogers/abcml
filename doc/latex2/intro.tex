@@ -1,0 +1,101 @@
+\chapter{Introduction\label{ch.intro}}%
+\index{Introduction}
+
+ABCml stands for Analysis of Bone Counts by Maximum Likelihood.  The term
+refers to three different things:
+\begin{enumerate}
+\item A statistical method that was introduced by \citet{Rogers:JAS-27-111}
+  and has been used in several subsequent publications
+  \citep{Rogers:JAS-27-635,Rogers:AA-00-x,Rogers:JAS-00}.
+\item A computer program that implements this method.
+\item A package of computer program that includes ABCml--the--program along
+  with several other programs that play supporting roles.
+\end{enumerate}
+This document describes ABCml--the--package, and includes a discription of
+ABCml--the--program.  It also includes a brief description of
+ABCml--the--statistical method, but you will have to look elsewhere for a full
+description of the method \citep{Rogers:JAS-27-111}.
+
+This introduction describes the goals and limitations of ABCml in general
+terms.  Later chapters will fill in the details.
+
+\section{Goals}
+
+Animals are introduced into archaeological assemblages in various ways, each
+of which will be referred to as an ``agent of deposition.''  These might
+include natural deaths at the site, kills at the site by humans or non-human
+carnivores, transport to the site by hunters or scavengers of various species,
+and running water, and so on.  The primary goal of ABCml is to estimate the
+relative contributions of different agents of deposition.
+
+In order to achieve this goal, it is necessary also to estimate two additional
+parameters, which account for factors that also influence bone counts.  The
+first of these factors is the number of carcasses originally deposited, and
+the second is the severity of destructive processes such as gnawing by
+carnivores. 
+
+ABCml provides both point estimates of these parameters and also standard
+errors. 
+
+\section{Data requirements}
+
+ABCml requires, as input data, detailed information about the agents of
+deposition that are to be studied.  The literature contains some data on bone
+transport by human and non-human hunters, but our knowledge of this issue is
+nonetheless woefully inadequate.  In the absence of extensive data on bone
+transport, how can ABCml be used?
+
+First, it is important to realize that this problem affects not only ABCml,
+but also all other methods of analysis.  ABCml differs from other methods only
+in that it requires that we make our assumptions explicit and detailed.  
+
+Second, there is no special difficulty in incorporating conventional ideas
+about transport and attrition into ABCml.  For example, there is a long
+history of analyses that are based on the idea that hunters will first discard
+those skeletal parts with greatest weight and lowest utility
+\cite{White:AA-19-254,Perkins:SA-219-97}.  \citet{Rogers:JAS-00} show how this
+qualitative idea can be incorporated into an analysis using ABCml.  The
+results, of course, are no better than the assumptions, but that is true of
+any method.  ABCml makes better use of its input data and violates fewer
+assumptions than any alternative method of analysis that is currently
+available. (For a critique of alternative methods, see
+\citet{Rogers:JAS-27-111}, \citet{Rogers:JAS-27-635}, \citet{Rogers:AA-00-x},
+and \citet{Rogers:JAS-00}.)
+
+Third, there is a considerable body of empirical research regarding 
+carcass transport by humans and other predators 
+\citep{Binford:NE-78,Bunn:JAA-7-412,O'Connell:JAR-44-113,Marean:JAS-19-101}.
+It is easy to incorporate the resulting data into analyses using ABCml.
+
+In summary, ABCml makes optimal use of available data from all sources while
+forcing us to be explicit about our assumptions.
+
+\section{The programs}
+
+The ABCml package consists of the following programs:
+\begin{description}
+\item[ABCml] estimates parameters and their standard errors, provides analysis
+  of residuals.  If the input file contains a large number of data sets, ABCml
+  will also provide quantiles of each estimated parameter.
+
+\item[ABCsim] generates bone-count data by computer simulation.
+
+\item[gnaw] subjects a data set to density-biased attrition.
+
+\item[tabcfg] tabulates the configurations in a 
+\hyperref{.cfg file}{.cfg file (see Section~}{)}{sec.cfg}, eliminating
+  duplicates. 
+  
+\item[mau2cfg] converts data from .mau format (which is common in published
+  literature) into \hyperref{.cfg format}{.cfg format}{}{sec.cfg} (which is
+  required by several of the programs in this package).
+
+\item[cplcfg] find the complement of a .cfg file.  If a .cfg file describes
+  bones that were transported from kill site to home-base, then its complement
+  will describe the bones that were left in the field.
+\end{description}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

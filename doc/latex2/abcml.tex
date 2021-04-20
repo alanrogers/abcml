@@ -1,0 +1,262 @@
+% LaTeX document produced by pod2latex from "abcml.pod".
+% The followings need be defined in the preamble of this document:
+%\def\C++{{\rm C\kern-.05em\raise.3ex\hbox{\footnotesize ++}}}
+%\def\underscore{\leavevmode\kern.04em\vbox{\hrule width 0.4em height 0.3pt}}
+%\setlength{\parindent}{0pt}
+
+\chapter{ABCml\label{ch.abcml}}%
+\index{ABCml}
+
+\section{General}
+
+Abcml is a program for Analysis of Bone Counts by Maximum Likelihood.  Two
+versions are available, one written in C and the other written in Java.  The C
+version is much faster.  The Java version is slower, but has two advantages.
+In the first place, there is no need to install the software.  It can be
+executed by pointing a web browser at
+\htmladdnormallink{http://mombasa.anthro.utah.edu/alan/abcml}%
+{http://mombasa.anthro.utah.edu/alan/abcml}.  In the second place, the Java
+version has a graphical user interface as well as a command-line interface.
+Although many people prefer a graphical user interface, the command-line
+interface of ABCml is in fact much faster and easier to use.
+
+\section{Input data}
+
+Whichever interface you use, you will need to provide the several kinds of
+input data.  Each data set that you provide can either be read from a file or
+(under the graphical user interface) typed or pasted into a dialog box.  If
+you are running the Java version from a web browser, the web browser will
+probably not allow file input.  In that case, the program will prompt you for
+data, which can either be typed or pasted into the dialog boxes that are
+provided.  The data sets required by ABCml are as follows:
+\begin{enumerate}
+\item \hyperref{Bone definition data}{Bone definition data (See
+    section~}{)}{sec.bdf}, which describe the characteristics of the skeletal
+  parts to be analyzed.  If these data are read from a file, the file's name 
+  must end with .bdf.
+  
+\item One or more sets of \hyperref{agent definition data}{agent definition
+    data (See section~}{)}{sec.cfg}, each of which describes an agent of
+  deposition.  If these data sets are read from files, each file name must end
+  with .cfg.
+  
+\item \hyperref{Skeletal part count data}{Skeletal part count data (See
+    section~}{)}{sec.cnt}, which contain the skeletal part counts on which the
+  estimates are based.  If these data are read from a file, the file name must
+  end with .cnt.
+\end{enumerate}
+
+\section{Command-line options}
+
+In addition, the command-line interface recognizes the following
+command line options:
+\begin{description}
+
+\item[\texttt{-a}]
+Estimate attrition (beta)? Default: Yes
+
+\item[\texttt{-C}]
+Print matrix of sampling covariances. Default: No. (C version only.) 
+
+\item[\texttt{-D x}] Set sensitivity to $x$/density.  This
+  option makes it possible to perform several analyses with the same set of
+  sensitivity values.  Default: Sensitivities are automatically scaled as
+  described below. (C version only.) 
+  
+\item[\texttt{-e x}] Set size of initial simplex.  It may be
+  useful to change this when the program fails to converge, or when different
+  runs converge to different answers. Default: 0.1.
+  (C version only.) 
+
+\item[\texttt{-L}]
+Print lnL? Default: No.  (C version only; the Java version always prints lnL.) 
+
+\item[\texttt{-p}]
+Toggle that controls whether the program uses principal
+components analysis to reduce the dimension of the problem.
+When PC is not used, dimensions are reduced by successively
+lumping skeletal parts with high correlation.  The default is
+to use principal components. (C version only.)
+
+\item[\texttt{-r}]
+Before dimension reduction, the program must calculate a
+pooled covariance matrix by averaging the matrices of the
+various agents of deposition.  By default, an unweighted 
+average is used.  This flag instructs the program to use
+a randomly-weighted average. (C version only.)
+
+\item[\texttt{-w i}]
+Use only column i of data in .cnt file.
+
+\item[\texttt{-v}]
+Toggle verbose mode.  Default: Off. (C version only.)
+\end{description}
+The program uses the method of maximum likelihood to estimate the
+following parameters: 
+\begin{description}
+  
+\item[$\kappa$] Think of kappa as the number of animals originally contributed
+  to the assemblage.  In fact, $K$, is the number originally contributed and
+  kappa is the expected value of $K$.  In practice, an estimate of $\kappa$ is
+  an estimate of $K$ with a conservative confidence interval.
+  
+\item[$\beta$] The intensity of attrition.  Skeletal part $i$ survives
+  attrition with probability $\exp[-\beta s_i]$ where $s_i$ measures the
+  sensitivity of part $i$ to attrition.  The sensitivity measure is $s_i =
+  A/d_i$, where $d_i$ is the density of part $i$ (as given in the .bdf file)
+  and $A$ is a constant of proportionality.  By default, $A$ is chosen so that
+  when $\beta=1$, half the bones in a complete skeleton will survive.
+  Alternatively, $A$ can be set using the \texttt{-D} option (see above).
+  
+\item[$\alpha$] A vector whose $i$'th entry, $\alpha_i$, is the fraction of
+  the assemblage representing contributions by the $i$'th agent of deposition.
+  Since the entries of $\alpha$ must sum to unity, the number of $\alpha$
+  parameters to be estimated is one less than the number of agents.  If only
+  one agent is specified, no $\alpha$ parameters are estimated.
+\end{description}
+
+When the \texttt{-a} flag is set, $\beta$ is not estimated.
+
+\section{Examples}
+
+Given data files such as those in the toy directory of this distribution,
+$\kappa$ and $\alpha_0$ can be estimated with the C version of the software by
+typing:
+\begin{verbatim}
+  abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+\end{verbatim}
+Using the command-line interface of the Java version, you would type
+\begin{verbatim}
+  java Abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+\end{verbatim}
+This produces:
+\begin{verbatim}
+  #Cmd line: abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+  #Assuming that attrition is absent.
+  #Output is                  : not verbose
+  #Number of agents           : 2
+  #Number of parameters       : 2
+  #Number of skeletal parts   : 2
+  #Sensitivity to attrition   : 0.28084047551266139164 / density
+  #Initial parameter vector is: fixed
+  #F mean gives equal weight to each agent
+  #
+  ### Dataset 1
+  #Initial params: kappa=1074 alpha[0]=0.5
+  #Using 2 / 2 dimensions.
+    rowlbl  mni        kappa     alpha[0]     alpha[1]        ChiSq
+  Estimate  537   997.356763     0.405506     0.594494     0.001209
+    StdErr  ***    35.503345     0.028033          ***          ***
+  
+  # Residuals:
+  #label                 y           mu         y-mu            Z
+  #Skull               537   536.376116     0.623884     0.026938
+  #Femur               942   940.810160     1.189840     0.033215
+  #
+  ### Dataset 2
+  #Initial params: kappa=1098 alpha[0]=0.5
+  #Using 2 / 2 dimensions.
+  # rowlbl  mni        kappa     alpha[0]     alpha[1]        ChiSq
+  Estimate  549  1031.067762     0.420381     0.579619     0.001166
+    StdErr  ***    36.098974     0.027674          ***          ***
+  
+  # Residuals:
+  #label                 y           mu         y-mu            Z
+  #Skull               549   548.370883     0.629117     0.026865
+  #Femur               983   981.812260     1.187740     0.032386
+\end{verbatim}
+The first few lines of output describe the options in effect, and I
+will discuss these in a moment.  The remaining lines give estimates
+for each of the two data sets in file toy.cnt.  The columns of output
+may include any or all of the following:  
+\begin{description}
+\item[mni]
+Minimum number of individuals, a crude (and badly biased) measure of
+the number of animals contributing to an assemblage.
+
+\item[kappa]
+maximum likelihood estimator (MLE) of $\kappa$ (defined above)
+
+\item[alpha[i]]
+MLE of the fraction of $\alpha_i$ (defined above)
+
+\item[beta]
+MLE of $\beta$, the intensity of attrition (defined above).
+
+\item[ChiSq]
+Measures how well the model fits the data.  When the model fits well,
+ChiSq is small.  It is calculated as
+\[
+   \hbox{ChiSq} = (y - \mu)' C^{-1}  (y - \mu)
+\]
+where $y$ is the vector of bone counts, $\mu$ is its expectation under the
+model, and $C$ is the covariance matrix.  In practice, it is usually
+impossible to invert the full matrix $C$, so the dimension of this problem is
+reduced by principal components analysis before this calculation is done.  The
+resulting statistic is approximately Chi-squared, with degrees of freedom
+equal to the number of dimensions in the reduced version of $C$.  The number of
+dimensions is printed out just before the estimates.  Since the ChiSq
+statistic is only approximately Chi-squared, it is best to test hypotheses
+using a sampling distribution inferred from computer simulations.  For this
+purpose, use abcsim to generate simulated data sets, and then analyze this
+simulated data using abcml.
+
+\item[lnL]
+The natural log of likelihood.  This is not a good measure of fit to
+the model because the analysis is carried out using principal
+components rather than the raw counts of skeletal parts.  Each
+analysis generates its own principal components, so the lnL values
+from different analyses may not be comparable.  The ChiSq statistic is
+a more useful measure of goodness of fit.
+\end{description}
+These columns do not always appear.  Their appearance is controlled by
+command line arguments or by the graphical interface.
+ 
+In the example above, the estimates of $\kappa$ are close to 1000 as they
+should be, since 1000 animals contribute to both of the simulated data sets in
+file toy.cnt.  The values listed under alpha[0] and alph[1] are estimates of
+parameters $\alpha_0$ and $\alpha_1$, which measure the contributions of the
+two agents of deposition that were specified when the program was run:
+home.cfg and kill.cfg.  In the simulations that generated these data,
+$\alpha_0=0.4$ and $\alpha_1=0.6$.  $\kappa$ is also close to its simulation
+value of 1000.
+
+In some cases, the agent of deposition will not be in doubt and we are
+interested only in the number of animals represented and in level of
+attrition.  In such cases, list only a single .cfg file.
+
+\section{How to make the method fail}
+
+\begin{enumerate}
+\item
+The method will fail when the number of parameters exceeds the number
+of skeletal parts.  It may appear that this is the case in the example
+above, since the output lists 4 values but there are only 2 skeletal
+parts.  But there are really only two independent parameters here.
+alpha[0] and alpha[1] only count as one parameter, since alpha[1] is
+equal to 1-alpha[0].  The likelihood isn't a parameter at all, but
+rather a measure of goodness of fit.  Thus, we really have just 2
+parameters here.  Had I failed to give the \texttt{-a} flag, however, the
+program would have tried to estimate beta.  When this happens, the program
+notices and generates an error message.
+
+\item
+The method will fail if there are several agents of deposition, one of
+which has only a single configuration.
+\end{enumerate}
+
+\section{Notes on the implementation}
+
+Parameters are estimated using the method of maximum likelihood.  The details
+of the method can be found in \citet{Rogers:JAS-27-111}.  To find parameter
+values that maximize the likelihood, the current computer program uses the
+downhill simplex method of Nelder and Mead, as implemented by
+\citet{Press:NRC-92}.  This algorithm is among the least efficient available,
+but it is simple and easy to implement.  If this program turns out to have
+wide interest, it will be worth implementing a more efficient maximization
+routine.
+  
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

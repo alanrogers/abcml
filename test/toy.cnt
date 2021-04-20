@@ -1,0 +1,9 @@
+2 #number of parts
+1 #number of datasets
+
+#Comments begin with a sharp and are ignored. 
+
+#Element   Dataset
+	     	 	      	       	     	      	     
+Skull      523
+Femur      950

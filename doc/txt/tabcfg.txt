@@ -1,0 +1,48 @@
+TABCFG Documentation File
+    Tabcfg is a program that tabulates configurations. It reads a
+    .cfg file and its output is in the form of a .cfg file (to find
+    about .cfg files, see files). It examines the configurations in
+    its input and eliminates duplicates. For example, consider the
+    following file, named small.cfg:
+
+      ############## small.cfg #######################################
+      2   #number of parts
+      5   #number of configurations
+      #
+      #probabilities of configurations:
+                    10  4  3   2   1
+      #
+      #Configurations:
+      #label                
+      Skull         0   0  1   1   1
+      Femur         1   1  2   2   0
+
+    The 1st and 2nd configurations are identical as are the 2nd and
+    3rd. Running this through tabcfg produces the following output,
+    which is also in the form of a .cfg file:
+
+      #                                   TABCFG
+      #                          Tabulate Configurations
+      #                             by Alan R. Rogers
+      #                                Version 0.10
+      #                         Type `tabcfg -- ' for help
+      
+      #Cmd line: tabcfg small.cfg
+      #Configured agent from file small.cfg
+      #Input file: small.cfg
+           2  # number of parts
+           3  # number of configurations
+      #Probabilities of configurations are proportional to:
+                         14 5 1
+      #label
+      Skull              0  1  1
+      Femur              1  2  0
+      
+    The new file contains the same configurations as the old one, but
+    now each configuration is unique.  The probability of the i'th
+    configuration in the new file is the sum of the probabilities
+    corresponding to that configuration in the old file.   The new .cfg
+    file is smaller and easier to manipulate than the old one.  Using the
+    new, shorter, .cfg file as input to abcml or abcsim will generate
+    precisely the same output, but with some savings in computer time.
+

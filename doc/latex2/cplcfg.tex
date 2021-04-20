@@ -1,0 +1,67 @@
+% LaTeX document produced by pod2latex from "cplcfg.pod".
+% The followings need be defined in the preamble of this document:
+%\def\C++{{\rm C\kern-.05em\raise.3ex\hbox{\footnotesize ++}}}
+%\def\underscore{\leavevmode\kern.04em\vbox{\hrule width 0.4em height 0.3pt}}
+%\setlength{\parindent}{0pt}
+
+\section{CPLCFG}%
+\index{CPLCFG}
+
+\subsection*{CPLCFG Documentation File}%
+\index{CPLCFG Documentation File}
+
+Cplcfg finds the complement of a .cfg with respect to the number of
+bones in a live animal.  If {\em home.cfg\/} describes the bones that are
+transported home, then cplcfg can be used to calculate a description
+of the bones that were not transported.
+\begin{verbatim}
+  Usage: cplcfg filename.bdf filename.cfg
+\end{verbatim}
+
+where {\em filename.bdf\/} is a bone definition file (in .bdf format) and
+{\em filename.cfg\/} is an agent configuration file (in .cfg format).  The
+output is another .cfg file.  Given this .bdf file:
+\begin{verbatim}
+  #################### toy.bdf #####################################
+  2   #number of parts
+  #label          live    density
+  Skull           1       0.49
+  Femur           2       0.37
+\end{verbatim}
+
+and this .cfg file:
+\begin{verbatim}
+  #################### home.cfg ##################################
+  2  #number of parts
+  5   #number of configurations
+  #
+  #probabilities of configurations:
+                0.5   0.2   0.15    0.1    0.05
+  #
+  #Configurations:
+  #label 
+  Skull         0     0     1       1      1
+  Femur         1     2     2       1      0
+\end{verbatim}
+
+the following command:
+\begin{verbatim}
+  cplcfg toy.bdf home.cfg
+\end{verbatim}
+
+will produce the following output:
+\begin{verbatim}
+       2  # number of parts
+       5  # number of configurations
+  #Probabilities of configurations are proportional to:
+                     10 4 3 2 1
+  #label
+  Skull              1  1  0  0  0
+  Femur              1  0  0  1  2
+\end{verbatim}
+
+which also in the form of a .cfg file.  Note the configurations in the
+new .cfg file and those of the old one each sum to produce the number
+of bones in a live animal, as given by {\em toy.bdf\/}.  Thus, if
+{\em home.cfg\/} describes the number of bones brought home from a kill
+site, then cplcfg tells us the number that were left at the kill site.

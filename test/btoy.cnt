@@ -1,0 +1,23 @@
+#                                   ABCSIM
+#                            Simulate Bone Counts
+#                             by Alan R. Rogers
+#                                Version 0.17
+#                         Type `abcsim -- ' for help
+
+#Cmd line: abcsim btoy.bdf bth.cfg btk.cfg -b -0.2 -K 1000
+#Configured bones from file btoy.bdf
+#Configured agent 0 from file bth.cfg
+#Configured agent 1 from file btk.cfg
+### Simulated data
+# Number of animals in each assemblage: 1000
+# Sensitivity to attrition: 0.29672553990853561823 / density
+# alpha:  0.5 0.5
+# beta = 0: No attrition
+  4 #number of parts
+  1 #number of data sets
+#part               DS1
+Skull               493
+Femur              1001
+Tibia               997
+Humerus             990
+

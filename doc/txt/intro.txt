@@ -1,0 +1,43 @@
+Documentation files
+    The `abcml' documentation files include:
+
+    intro     This file
+
+    files     Describes input file formats
+
+    abcml     Estimation program
+
+    abcsim    Simulation program
+
+    gnaw      Apply attrition to an assemblage.
+
+    tabcfg    Condense a .cfg file
+
+    mau2cfg   Convert from .mau to .cfg format
+
+    cplcfg    Find complement of a .cfg file
+
+    wgtcfg    Weight configurations by energetic value net energetic
+              cost of transport.
+
+    Each documentation file is provided in several formats:
+
+    `pod'     Perl's "pod" format. Pod is a very simple text formatting
+              language that can be translated automatically into the
+              other formats listed here for documentation files.
+              Files in this format are collected in the doc/pod
+              directory and have suffix .pod.
+
+    `txt'     Plain text format. These files are collected in the
+              doc/txt directory and have suffix .txt.
+
+    `tex'     LaTeX format. To view these files, you must use the LaTeX
+              typesetting program. These files are collected in the
+              doc/tex directory and have suffix .tex.
+
+    `html'    This is the format understood by net browsers such as
+              Netscape and Internet Explorer. These files are
+              collected in the doc/html directory and have suffix
+              .html (on Mac and unix-like systems) or .htm (on
+              Microsoft systems).
+

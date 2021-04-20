@@ -1,0 +1,215 @@
+Input Files
+    The programs in this package use several types of input file,
+    all of which are collected here. The type of a file is specified
+    by its suffix:
+
+      Suffix           File Type
+      ------           ---------
+       .bdf            Bone definition file
+       .cfg            Agent configuration file
+       .mau            Minimum Animal Units file
+       .cnt            Skeletal part counts
+       .wgt            Skeletal part weights
+
+    All of these formats are plain ascii. Comments may be included
+    in any input file. A comment begins with the character # and
+    ends at the end of the line. Comments are ignored by the input
+    routines. None of the programs in the package use all of these
+    types of input file, but several of them use more than one.
+
+  Bone Definition File (.bdf)
+
+    The bone definition file is used to describe the characteristics
+    of skeletal parts. Example:
+
+        #File toy.bdf
+        2   #number of parts
+        #label      live    density
+        Skull       1       0.49
+        Femur       2       0.37
+
+    The file toy.bdf defines the skeletal parts of a toy model in
+    which there are only two elements: skull and femur. The first
+    line of input says that there are 2 parts. The next line is a
+    comment that is ignored by the input routine. After that, each
+    line has three fields, which are separated by white space
+    (blanks and/or tabs):
+
+    Field 1 the label of the skeletal part
+
+    Field 2 the number of this part in a complete skeleton
+
+    Field 3 the density of this part. The program assumes that bones
+            survive attrition with a probability equal to exp(-
+            beta**A*/density), where *A* is a scaling constant
+            determined by the program and beta measures the
+            intensity of attrition. *A* is determined by the program
+            so that when beta=1, half the bones in an entire
+            skeleton would survive attrition. Because of this
+            rescaling, it doesn't matter what units density is
+            measured in.
+
+  Agent Configuration File (.cfg)
+
+    The agent configuration file describes the characteristics of
+    agents of deposition. Example:
+
+        # file:  home.cfg
+        2  #number of parts
+        5  #number of configurations
+
+        #probabilities of configurations:
+                 0.5   0.2   0.15    0.1    0.05
+
+        #Configurations:
+        #label              
+        Skull    0     0     1       1      1
+        Femur    1     2     2       1      0
+
+    An animal need not be deposited in the assemblage as an entire
+    skeleton. It may be deposited as a skull only, as a skull and 1
+    femur, as 2 femurs and no skull, and so on. Each of these
+    possibilities is called a "configuration". To describe an agent
+    of deposition, the current input routine requires that one
+    specify the configurations that are possible along with their
+    probabilities.
+
+    (If the number of configurations is large, this could be
+    unwieldy. If there is any demand, I will revise the input
+    routines to allow a shorter form of input. The shorter form
+    would require the user to specify the mean number of each
+    skeletal part, the mean square of each part, and the mean
+    product of each pair of parts. To calculate these numbers, one
+    would ordinarily need to start with a list of configurations
+    together with their probabilities. Thus, I see no clear
+    advantage to the shorter input format. If anyone does need it,
+    let me know and I will revise the code.)
+
+    In the .cfg file, the lines are interpreted as follows:
+
+    Line 1 the number of skeletal parts
+
+    Line 2 the number of configurations
+
+    Line 3 numbers, separated by white space, giving the probabilities
+           of the configurations. Although I refer to these as
+           probabilities, they need not sum to 1, for they are
+           renormalized by the input routine. For example, the
+           probabilities line for a data set with 5 configurations
+           might look like
+
+               1 1 2 1 1
+
+           which would imply that the probability of configuration 3
+           is twice as large as those of configurations 1, 2, 4, and
+           5.
+
+    Each succeeding line
+           has several fields, separated by whitespace. The first
+           field is the label for a particular skeletal part. The
+           remaining fields give the number of that part in
+           configuration 1, configuration 2, and so on.
+
+    For example, home.cfg tells us that there are 2 parts and 5
+    configurations. The 1st configuration occurs with probability
+    0.5 and consists of 0 skulls and 1 femur.
+
+  Minimum Animal Units File (.mau)
+
+    In published literature, one often finds skeletal part counts
+    expressed as Minimum Animal Units (MAUs). These are equal to the
+    number of distinct copies of each part divided by the number of
+    copies of that part in a living animal. The .mau file format
+    provides the same information as the .cfg file format except
+    that skeletal parts are expressed as MAUs rather than as raw
+    counts. The format is identical to the .cfg format except that
+    configurations are columns of floating-point numbers rather than
+    columns of integers. Use the program mau2cfg to convert from
+    .mau format to .cfg format.
+
+  Skeletal Part Count File (.cnt)
+
+    The skeletal part count file is read by several of the programs
+    in the package. In addition, abcsim produces output is in the
+    form of a .cnt file so that it can be used as input to abcml.
+    This file provides the counts of skeletal parts from one or more
+    assemblages. Here is an example:
+
+        # file: toy.cnt
+          2 #number of parts
+          2 #number of data sets
+        #label              DS0  DS1
+        Skull               537  549
+        Femur               942  983
+
+    The first two lines give the number of skeletal parts and the
+    number of data sets. Each succeeding line has several fields
+    separated by whitespace, which are interpreted as follows:
+
+    Field 1 skeletal part label
+
+    Field 2 count of this part in the 1st data set
+
+    Field n count of this part in the (n-1)th data set
+
+  Weight File (.wgt)
+
+    The weight file format is read only by wgtcfg. It allows wgtcfg
+    to generate a .cfg file that is consistent with the assumption
+    that configurations that are high in energetic value but easy to
+    carry are most likely to be transported. Its format looks like
+    this:
+
+      24 # number of parts
+      #part               MUI    GrossWgt
+      half-mandible       295.00   889.00 # without tongue; divisor=2
+      atlas/axis          262.00   315.00 # divisor = 2
+      cervical_vert       272.14   301.71 # divisor = 7
+      thoracic_vert       187.15   214.62 # divisor = 13
+      lumbar_vert         284.33   323.33 # divisor = 6
+      innominate          843.67  1058.88 # = pelvis/3
+      sacrum              843.67  1058.88 # = pelvis/3
+      rib                 101.92   141.81 # divisor = 26
+      scapula            2295.00  2398.00 # divisor = 1
+      P_humerus           743.00   830.50 # divisor = 2
+      D_humerus           743.00   830.50 # divisor = 2
+      P_radius            377.50   459.50 # divisor = 2
+      D_radius            377.50   459.50 # divisor = 2
+      carpal               33.50    46.75 # divisor = 8
+      P_metacarpal         33.50    46.75 # divisor = 8
+      D_metacarpal         33.50    46.75 # divisor = 8
+      phalange             15.67    24.67 # divisor = 6
+      P_femur            2569.50  2671.00 # divisor = 2
+      D_femur            2569.50  2671.00 # divisor = 2
+      P_tibia             218.33   255.33 # divisor = 6
+      D_tibia             218.33   255.33 # divisor = 6
+      tarsal              218.33   255.33 # divisor = 6
+      P_metatarsal        290.50   377.00 # divisor = 2
+      D_metatarsal        290.50   377.00 # divisor = 2
+
+    As usual, the first column gives the labels of the skeletal
+    parts. The second column gives some measure of the utility of
+    the part. In this example I have used the "meat utility index"
+    (MUI) of Metcalfe and Jones (1988, p 489). It is simply the
+    weight (in grams, as I recall) of the meat attached to the bone.
+    The third column gives the gross weight (again, I think, in
+    grams) of the skeletal part.
+
+    There is one minor complication. Published data provide weights
+    not for individual skeletal parts but for various packages that
+    are thought to be transported together (Metcalfe and Jones 1988,
+    p 489; Binford 1978, pp 16-17). For example, the values
+    published for "ribs" refer to the entire rib cage, but those for
+    "femur" refer to a single femur (not the two femurs together).
+    Both the MUI and the GrossWgt values must be divided into
+    components that reflect the skeletal parts used in the analysis.
+    If the ribs always travel together, then it doesn't matter
+    whether we assign the entire weight to a single rib and assign
+    zero weight to the other ribs, or whether we assign equal weight
+    to each rib. The latter choice is simpler, however, so that is
+    what I have done here. Since there are 26 ribs, I divided the
+    published "rib" values by 26. Since the distal and proximal ends
+    of the femur are tabulated separately, I divided the published
+    "femur" values by 2. These divisors are given in comments at the
+    end of each input line to help me remember what I did. =cut
+

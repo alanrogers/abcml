@@ -1,0 +1,17 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {1.1}Goals}{2}
+\contentsline {section}{\numberline {1.2}Data requirements}{3}
+\contentsline {section}{\numberline {1.3}The programs}{3}
+\contentsline {chapter}{\numberline {2}Input Files}{5}
+\contentsline {section}{\numberline {2.1}Bone Definition File (.bdf)}{5}
+\contentsline {section}{\numberline {2.2}Agent Configuration File (.cfg)}{6}
+\contentsline {section}{\numberline {2.3}Minimum Animal Units File (.mau)}{7}
+\contentsline {section}{\numberline {2.4}Skeletal Part Count File (.cnt)}{7}
+\contentsline {section}{\numberline {2.5}Weight File (.wgt)}{8}
+\contentsline {chapter}{\numberline {3}ABCml}{10}
+\contentsline {section}{\numberline {3.1}General}{10}
+\contentsline {section}{\numberline {3.2}Input data}{10}
+\contentsline {section}{\numberline {3.3}Command-line options}{11}
+\contentsline {section}{\numberline {3.4}Examples}{12}
+\contentsline {section}{\numberline {3.5}How to make the method fail}{14}
+\contentsline {section}{\numberline {3.6}Notes on the implementation}{14}

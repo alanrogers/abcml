@@ -1,0 +1,1369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.1 release (March 30, 1999)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Analysis of Bone Counts by Maximum Likelihood: A Package of
+Computer Programs</TITLE>
+<META NAME="description" CONTENT="Analysis of Bone Counts by Maximum Likelihood: A Package of
+Computer Programs">
+<META NAME="keywords" CONTENT="main">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.1 release">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="main.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Analysis of Bone Counts by Maximum Likelihood: A Package of
+Computer Programs</H1>
+<P ALIGN="CENTER"><STRONG>Alan R. Rogers<A NAME="tex2html1"
+ HREF="#foot13"><SUP>1</SUP></A></STRONG></P>
+<BR>
+
+<H2><A NAME="SECTION00100000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html51"
+ HREF="main.html">Contents</A>
+<LI><A NAME="tex2html52"
+ HREF="main.html#SECTION00200000000000000000">1. Introduction</A>
+<UL>
+<LI><A NAME="tex2html53"
+ HREF="main.html#SECTION00210000000000000000">1.1 Goals</A>
+<LI><A NAME="tex2html54"
+ HREF="main.html#SECTION00220000000000000000">1.2 Data requirements</A>
+<LI><A NAME="tex2html55"
+ HREF="main.html#SECTION00230000000000000000">1.3 The programs</A>
+</UL>
+<LI><A NAME="tex2html56"
+ HREF="main.html#SECTION00300000000000000000">2. Input Files</A>
+<UL>
+<LI><A NAME="tex2html57"
+ HREF="main.html#SECTION00310000000000000000">2.1 Bone Definition File (.bdf)</A>
+<LI><A NAME="tex2html58"
+ HREF="main.html#SECTION00320000000000000000">2.2 Agent Configuration File (.cfg)</A>
+<LI><A NAME="tex2html59"
+ HREF="main.html#SECTION00330000000000000000">2.3 Minimum Animal Units File (.mau)</A>
+<LI><A NAME="tex2html60"
+ HREF="main.html#SECTION00340000000000000000">2.4 Skeletal Part Count File (.cnt)</A>
+<LI><A NAME="tex2html61"
+ HREF="main.html#SECTION00350000000000000000">2.5 Weight File (.wgt)</A>
+</UL>
+<LI><A NAME="tex2html62"
+ HREF="main.html#SECTION00400000000000000000">3. ABCml</A>
+<UL>
+<LI><A NAME="tex2html63"
+ HREF="main.html#SECTION00410000000000000000">3.1 General</A>
+<LI><A NAME="tex2html64"
+ HREF="main.html#SECTION00420000000000000000">3.2 Input data</A>
+<LI><A NAME="tex2html65"
+ HREF="main.html#SECTION00430000000000000000">3.3 Command-line options</A>
+<LI><A NAME="tex2html66"
+ HREF="main.html#SECTION00440000000000000000">3.4 Examples</A>
+<LI><A NAME="tex2html67"
+ HREF="main.html#SECTION00450000000000000000">3.5 How to make the method fail</A>
+<LI><A NAME="tex2html68"
+ HREF="main.html#SECTION00460000000000000000">3.6 Notes on the implementation</A>
+<LI><A NAME="tex2html69"
+ HREF="main.html#SECTION00470000000000000000">3.7 ABCSIM</A>
+<LI><A NAME="tex2html70"
+ HREF="main.html#SECTION00480000000000000000">3.8 CPLCFG</A>
+<LI><A NAME="tex2html71"
+ HREF="main.html#SECTION00490000000000000000">3.9 MAU2CFG</A>
+<LI><A NAME="tex2html72"
+ HREF="main.html#SECTION004100000000000000000">3.10 TABCFG</A>
+</UL>
+<LI><A NAME="tex2html73"
+ HREF="main.html#SECTION00500000000000000000">Bibliography</A>
+</UL>
+<!--End of Table of Contents-->
+<H1><A NAME="SECTION00200000000000000000"></A><A NAME="ch.intro"></A><A NAME="33"></A><BR>
+1. Introduction
+</H1>
+
+<P>
+ABCml stands for Analysis of Bone Counts by Maximum Likelihood.  The term
+refers to three different things:
+
+<OL>
+<LI>A statistical method that was introduced by <A
+ HREF="main.html#Rogers:JAS-27-111">Rogers (2000a)</A>
+  and has been used in several subsequent publications
+  (<A NAME="tex2html74"
+ HREF="main.html#Rogers:AA-00-x">Rogers, 2000b</A>,<A NAME="tex2html75"
+ HREF="main.html#Rogers:JAS-27-635">c</A>; <A NAME="tex2html76"
+ HREF="main.html#Rogers:JAS-00">Rogers and Broughton, 2000</A>).</LI>
+<LI>A computer program that implements this method.</LI>
+<LI>A package of computer program that includes ABCml-the-program along
+  with several other programs that play supporting roles.</LI>
+</OL>
+This document describes ABCml-the-package, and includes a discription of
+ABCml-the-program.  It also includes a brief description of
+ABCml-the-statistical method, but you will have to look elsewhere for a full
+description of the method (<A
+ HREF="main.html#Rogers:JAS-27-111">Rogers, 2000a</A>).
+
+<P>
+This introduction describes the goals and limitations of ABCml in general
+terms.  Later chapters will fill in the details.
+
+<P>
+
+<H1><A NAME="SECTION00210000000000000000">
+1.1 Goals</A>
+</H1>
+
+<P>
+Animals are introduced into archaeological assemblages in various ways, each
+of which will be referred to as an ``agent of deposition.''  These might
+include natural deaths at the site, kills at the site by humans or non-human
+carnivores, transport to the site by hunters or scavengers of various species,
+and running water, and so on.  The primary goal of ABCml is to estimate the
+relative contributions of different agents of deposition.
+
+<P>
+In order to achieve this goal, it is necessary also to estimate two additional
+parameters, which account for factors that also influence bone counts.  The
+first of these factors is the number of carcasses originally deposited, and
+the second is the severity of destructive processes such as gnawing by
+carnivores. 
+
+<P>
+ABCml provides both point estimates of these parameters and also standard
+errors. 
+
+<P>
+
+<H1><A NAME="SECTION00220000000000000000">
+1.2 Data requirements</A>
+</H1>
+
+<P>
+ABCml requires, as input data, detailed information about the agents of
+deposition that are to be studied.  The literature contains some data on bone
+transport by human and non-human hunters, but our knowledge of this issue is
+nonetheless woefully inadequate.  In the absence of extensive data on bone
+transport, how can ABCml be used?
+
+<P>
+First, it is important to realize that this problem affects not only ABCml,
+but also all other methods of analysis.  ABCml differs from other methods only
+in that it requires that we make our assumptions explicit and detailed.  
+
+<P>
+Second, there is no special difficulty in incorporating conventional ideas
+about transport and attrition into ABCml.  For example, there is a long
+history of analyses that are based on the idea that hunters will first discard
+those skeletal parts with greatest weight and lowest utility
+<A NAME="tex2html77"
+ HREF="main.html#Perkins:SA-219-97">Perkins and Daly (1968)</A>; <A NAME="tex2html78"
+ HREF="main.html#White:AA-19-254">White (1954)</A>.  <A
+ HREF="main.html#Rogers:JAS-00">Rogers and Broughton (2000)</A> show how this
+qualitative idea can be incorporated into an analysis using ABCml.  The
+results, of course, are no better than the assumptions, but that is true of
+any method.  ABCml makes better use of its input data and violates fewer
+assumptions than any alternative method of analysis that is currently
+available. (For a critique of alternative methods, see
+<A
+ HREF="main.html#Rogers:JAS-27-111">Rogers (2000a)</A>, <A
+ HREF="main.html#Rogers:JAS-27-635">Rogers (2000c)</A>, <A
+ HREF="main.html#Rogers:AA-00-x">Rogers (2000b)</A>,
+and <A
+ HREF="main.html#Rogers:JAS-00">Rogers and Broughton (2000)</A>.)
+
+<P>
+Third, there is a considerable body of empirical research regarding 
+carcass transport by humans and other predators 
+(<A NAME="tex2html79"
+ HREF="main.html#Bunn:JAA-7-412">Bunn <I>et&nbsp;al.</I>, 1988</A>; <A NAME="tex2html80"
+ HREF="main.html#Marean:JAS-19-101">Marean <I>et&nbsp;al.</I>, 1992</A>; <A NAME="tex2html81"
+ HREF="main.html#Binford:NE-78">Binford, 1978</A>; <A NAME="tex2html82"
+ HREF="main.html#O'Connell:JAR-44-113">O'Connell <I>et&nbsp;al.</I>, 1988</A>).
+It is easy to incorporate the resulting data into analyses using ABCml.
+
+<P>
+In summary, ABCml makes optimal use of available data from all sources while
+forcing us to be explicit about our assumptions.
+
+<P>
+
+<H1><A NAME="SECTION00230000000000000000">
+1.3 The programs</A>
+</H1>
+
+<P>
+The ABCml package consists of the following programs:
+<DL>
+<DT><STRONG>ABCml</STRONG></DT>
+<DD>estimates parameters and their standard errors, provides analysis
+of residuals.  If the input file contains a large number of data sets, ABCml
+  will also provide quantiles of each estimated parameter.
+
+<P></DD>
+<DT><STRONG>ABCsim</STRONG></DT>
+<DD>generates bone-count data by computer simulation.
+
+<P></DD>
+<DT><STRONG>gnaw</STRONG></DT>
+<DD>subjects a data set to density-biased attrition.
+
+<P></DD>
+<DT><STRONG>tabcfg</STRONG></DT>
+<DD>tabulates the configurations in a 
+<A HREF="main.html#sec.cfg">.cfg file</A>, eliminating
+  duplicates. 
+
+<P></DD>
+<DT><STRONG>mau2cfg</STRONG></DT>
+<DD>converts data from .mau format (which is common in published
+  literature) into <A HREF="main.html#sec.cfg">.cfg format</A> (which is
+  required by several of the programs in this package).
+
+<P></DD>
+<DT><STRONG>cplcfg</STRONG></DT>
+<DD>find the complement of a .cfg file.  If a .cfg file describes
+  bones that were transported from kill site to home-base, then its complement
+  will describe the bones that were left in the field.</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00300000000000000000"></A><A NAME="ch.files"></A><A NAME="101"></A><BR>
+2. Input Files
+</H1>
+
+<P>
+This chapter describes the various kinds of input file that are used by the
+programs in this package.  The type of a file is specified by its suffix:
+<PRE>
+
+  Suffix           File Type
+  ------           ---------
+   .bdf            Bone definition file
+   .cfg            Agent configuration file
+   .mau            Minimum Animal Units file
+   .cnt            Skeletal part counts
+   .wgt            Skeletal part weights
+</PRE>
+All of these formats are plain ascii.  Comments may be included in any
+input file.  A comment begins with the character # and ends at the end
+of the line.  Comments are ignored by the input routines.  None of the
+programs in the package use all of these types of input file, but
+several of them use more than one.
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000"></A><A NAME="sec.bdf"></A><A NAME="105"></A><BR>
+2.1 Bone Definition File (.bdf)
+</H1>
+
+<P>
+The bone definition file is used to describe the characteristics of
+skeletal parts.  Example:
+<PRE>
+
+    #File toy.bdf
+    2   #number of parts
+    #label      live    density
+    Skull       1       0.49
+    Femur       2       0.37
+</PRE>
+
+<P>
+The file toy.bdf defines the skeletal parts of a toy model in which
+there are only two elements: skull and femur.  The first line of input
+says that there are 2 parts.  The next line is a comment that is
+ignored by the input routine.  After that, each line has three fields,
+which are separated by white space (blanks and/or tabs):
+
+<P>
+ 
+<DL>
+<DT><STRONG>Field 1</STRONG></DT>
+<DD>the label of the skeletal part
+<P>
+ </DD>
+<DT><STRONG>Field 2</STRONG></DT>
+<DD>the number of this part in a complete skeleton
+
+<P>
+ </DD>
+<DT><STRONG>Field 3</STRONG></DT>
+<DD>the density of this part.  The program assumes that a copy of
+  skeletal part <I>i</I> survives attrition with probability 
+<!-- MATH
+ $\exp[-\{\hbox{beta}\}A/d_i]$
+ -->
+exp[- {<I>beta</I>}<I>A</I>/<I>d</I><SUB>i</SUB>],
+  where <I>d</I><SUB>i</SUB> is the density of the skeletal part, <I>A</I> is a scaling constant
+  determined by the program, and 
+<!-- MATH
+ $\{\hbox{beta}\}$
+ -->
+{<I>beta</I>} measures the intensity of attrition.
+  <I>A</I> is determined by the program so that when 
+<!-- MATH
+ $\{\hbox{beta}\}=1$
+ -->
+{<I>beta</I>} = 1, half the bones in
+  an entire skeleton would survive attrition.  Because of this rescaling, it
+  doesn't matter what units density is measured in.
+
+<P></DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000"></A><A NAME="sec.cfg"></A><A NAME="111"></A><BR>
+2.2 Agent Configuration File (.cfg)
+</H1>
+
+<P>
+The agent configuration file describes the characteristics of agents
+of deposition.  Example:
+<PRE>
+
+    # file:  home.cfg
+    2  #number of parts
+    5  #number of configurations
+    #probabilities of configurations:
+             0.5   0.2   0.15    0.1    0.05
+    #Configurations:
+    #label              
+    Skull    0     0     1       1      1
+    Femur    1     2     2       1      0
+</PRE>
+
+<P>
+An animal need not be deposited in the assemblage as an entire skeleton.  It
+may be deposited as a skull only, as a skull and 1 femur, as 2 femurs and no
+skull, and so on.  Each of these possibilities is called a ``configuration''.
+To describe an agent of deposition, the .cfg file specifies the configurations
+that are possible along with their probabilities.  The lines are interpreted
+as follows:
+
+<P>
+ 
+<DL>
+<DT><STRONG>Line 1</STRONG></DT>
+<DD>the number of skeletal parts
+<P>
+ </DD>
+<DT><STRONG>Line 2</STRONG></DT>
+<DD>the number of configurations
+
+<P>
+ </DD>
+<DT><STRONG>Line 3</STRONG></DT>
+<DD>numbers, separated by white space, giving the probabilities of the
+configurations.  Although I refer to these as probabilities, they need
+not sum to 1, for they are normalized by the input routine.  For
+example, the probabilities line for a data set with 5 configurations
+might look like 
+<PRE>
+
+    1 1 2 1 1
+</PRE>
+which would imply that the probability of configuration 3 is twice as
+large as those of configurations 1, 2, 4, and 5.
+
+<P>
+ </DD>
+<DT><STRONG>Each succeeding line</STRONG></DT>
+<DD>has several fields, separated by whitespace.  The first field is the
+label for a particular skeletal part.  The remaining fields give the
+number of that part in configuration&nbsp;1, configuration&nbsp;2, and so on.</DD>
+</DL>
+
+<P>
+For example, home.cfg tells us that there are 2 parts and 5
+configurations.  The 1st configuration occurs with probability 0.5 and
+consists of 0 skulls and 1 femur.
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000"></A><A NAME="sec.mau"></A><A NAME="119"></A><BR>
+2.3 Minimum Animal Units File (.mau)
+</H1>
+
+<P>
+In published literature, one often finds skeletal part counts
+expressed as Minimum Animal Units (MAUs).  These are equal to the
+number of distinct copies of each part divided by the number of copies
+of that part in a living animal.  The .mau file format provides the
+same information as the .cfg file format except that skeletal parts
+are expressed as MAUs rather than as raw counts.  The format is
+identical to the .cfg format except that configurations are columns of
+floating-point numbers rather than columns of integers.  Use the
+program mau2cfg to convert from .mau format to .cfg format.
+
+<P>
+
+<H1><A NAME="SECTION00340000000000000000"></A><A NAME="sec.cnt"></A><A NAME="121"></A><BR>
+2.4 Skeletal Part Count File (.cnt)
+</H1>
+
+<P>
+The skeletal part count file is read by several of the programs in the
+package.  In addition, abcsim produces output is in the form of a .cnt file so
+that it can be used as input by other programs.  This file provides the counts
+of skeletal parts from one or more assemblages.  Here is an example:
+<PRE>
+
+    # file: toy.cnt
+    2 #number of parts
+    2 #number of data sets
+    #label              DS0  DS1
+    Skull               537  549
+    Femur               942  983
+</PRE>
+The first two lines give the number of skeletal parts and the number
+of data sets.  Each succeeding line has several fields separated by
+whitespace, which are interpreted as follows:
+
+<P>
+ 
+<DL>
+<DT><STRONG>Field 1</STRONG></DT>
+<DD>skeletal part label
+<P>
+ </DD>
+<DT><STRONG>Field 2</STRONG></DT>
+<DD>count of this part in the 1st data set
+
+<P>
+ </DD>
+<DT><STRONG>Field n</STRONG></DT>
+<DD>count of this part in the (n-1)th data set</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00350000000000000000"></A><A NAME="sec.wgt"></A><A NAME="127"></A><BR>
+2.5 Weight File (.wgt)
+</H1>
+
+<P>
+The weight file format is read only by the wgtcfg program.  It allows wgtcfg
+to generate a .cfg file that is consistent with the assumption that
+configurations that are high in energetic value but easy to carry are most
+likely to be transported.  Its format looks like this:
+<PRE>
+
+  24 # number of parts
+  #part               MUI    GrossWgt
+  half-mandible       295.00   889.00 # without tongue; divisor=2
+  atlas/axis          262.00   315.00 # divisor = 2
+  cervical_vert       272.14   301.71 # divisor = 7
+  thoracic_vert       187.15   214.62 # divisor = 13
+  lumbar_vert         284.33   323.33 # divisor = 6
+  innominate          843.67  1058.88 # = pelvis/3
+  sacrum              843.67  1058.88 # = pelvis/3
+  rib                 101.92   141.81 # divisor = 26
+  scapula            2295.00  2398.00 # divisor = 1
+  P_humerus           743.00   830.50 # divisor = 2
+  D_humerus           743.00   830.50 # divisor = 2
+  P_radius            377.50   459.50 # divisor = 2
+  D_radius            377.50   459.50 # divisor = 2
+  carpal               33.50    46.75 # divisor = 8
+  P_metacarpal         33.50    46.75 # divisor = 8
+  D_metacarpal         33.50    46.75 # divisor = 8
+  phalange             15.67    24.67 # divisor = 6
+  P_femur            2569.50  2671.00 # divisor = 2
+  D_femur            2569.50  2671.00 # divisor = 2
+  P_tibia             218.33   255.33 # divisor = 6
+  D_tibia             218.33   255.33 # divisor = 6
+  tarsal              218.33   255.33 # divisor = 6
+  P_metatarsal        290.50   377.00 # divisor = 2
+  D_metatarsal        290.50   377.00 # divisor = 2
+</PRE>
+
+<P>
+As usual, the first column gives the labels of the skeletal parts.
+The second column gives some measure of the utility of the part.  In
+this example I have used the ``meat utility index'' (MUI) of Metcalfe
+and Jones (1988, p.&nbsp;489).  It is simply the weight (in grams, as I
+recall) of the meat attached to the bone.  The third column gives the
+gross weight (again, I think, in grams) of the skeletal part.
+
+<P>
+There is one minor complication.  Published data provide weights not
+for individual skeletal parts but for various packages that are
+thought to be transported together (Metcalfe and Jones 1988, p 489;
+Binford 1978, pp 16-17).  For example, the values published for ``ribs''
+refer to the entire rib cage, but those for ``femur'' refer to a single
+femur (not the two femurs together).  Both the MUI and the GrossWgt
+values must be divided into components that reflect the skeletal parts
+used in the analysis.  If the ribs always travel together, then it
+doesn't matter whether we assign the entire weight to a single rib and
+assign zero weight to the other ribs, or whether we assign equal
+weight to each rib.  The latter choice is simpler, however, so that is
+what I have done here.  Since there are 26 ribs, I divided the
+published ``rib'' values by 26.  Since the distal and proximal ends of
+the femur are tabulated separately, I divided the published ``femur''
+values by 2.  These divisors are given in comments at the end of each
+input line to help me remember what I did.
+
+<P>
+
+<H1><A NAME="SECTION00400000000000000000"></A><A NAME="ch.abcml"></A><A NAME="212"></A><BR>
+3. ABCml
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00410000000000000000">
+3.1 General</A>
+</H1>
+
+<P>
+Abcml is a program for Analysis of Bone Counts by Maximum Likelihood.  Two
+versions are available, one written in C and the other written in Java.  The C
+version is much faster.  The Java version is slower, but has two advantages.
+In the first place, there is no need to install the software.  It can be
+executed by pointing a web browser at
+<A NAME="tex2html10"
+ HREF="http://mombasa.anthro.utah.edu/alan/abcml">http://mombasa.anthro.utah.edu/alan/abcml</A>.  In the second place, the Java
+version has a graphical user interface as well as a command-line interface.
+Although many people prefer a graphical user interface, the command-line
+interface of ABCml is in fact much faster and easier to use.
+
+<P>
+
+<H1><A NAME="SECTION00420000000000000000">
+3.2 Input data</A>
+</H1>
+
+<P>
+Whichever interface you use, you will need to provide the several kinds of
+input data.  Each data set that you provide can either be read from a file or
+(under the graphical user interface) typed or pasted into a dialog box.  If
+you are running the Java version from a web browser, the web browser will
+probably not allow file input.  In that case, the program will prompt you for
+data, which can either be typed or pasted into the dialog boxes that are
+provided.  The data sets required by ABCml are as follows:
+
+<OL>
+<LI><A HREF="main.html#sec.bdf">Bone definition data</A>, which describe the characteristics of the skeletal
+  parts to be analyzed.  If these data are read from a file, the file's name 
+  must end with .bdf.
+
+<P>
+ </LI>
+<LI>One or more sets of <A HREF="main.html#sec.cfg">agent definition data</A>, each of which describes an agent of
+  deposition.  If these data sets are read from files, each file name must end
+  with .cfg.
+
+<P>
+ </LI>
+<LI><A HREF="main.html#sec.cnt">Skeletal part count data</A>, which contain the skeletal part counts on which the
+  estimates are based.  If these data are read from a file, the file name must
+  end with .cnt.</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00430000000000000000">
+3.3 Command-line options</A>
+</H1>
+
+<P>
+In addition, the command-line interface recognizes the following
+command line options:
+<DL>
+<DT><STRONG><TT>-a</TT></STRONG></DT>
+<DD>Estimate attrition (beta)? Default: Yes
+<P>
+ </DD>
+<DT><STRONG><TT>-C</TT></STRONG></DT>
+<DD>Print matrix of sampling covariances. Default: No. (C version only.) 
+
+<P>
+ </DD>
+<DT><STRONG><TT>-D x</TT></STRONG></DT>
+<DD>Set sensitivity to <I>x</I>/density.  This
+  option makes it possible to perform several analyses with the same set of
+  sensitivity values.  Default: Sensitivities are automatically scaled as
+  described below. (C version only.) 
+
+<P>
+ </DD>
+<DT><STRONG><TT>-e x</TT></STRONG></DT>
+<DD>Set size of initial simplex.  It may be
+  useful to change this when the program fails to converge, or when different
+  runs converge to different answers. Default: 0.1.
+  (C version only.) 
+
+<P>
+ </DD>
+<DT><STRONG><TT>-L</TT></STRONG></DT>
+<DD>Print lnL? Default: No.  (C version only; the Java version always prints lnL.) 
+
+<P>
+ </DD>
+<DT><STRONG><TT>-p</TT></STRONG></DT>
+<DD>Toggle that controls whether the program uses principal
+components analysis to reduce the dimension of the problem.
+When PC is not used, dimensions are reduced by successively
+lumping skeletal parts with high correlation.  The default is
+to use principal components. (C version only.)
+
+<P>
+ </DD>
+<DT><STRONG><TT>-r</TT></STRONG></DT>
+<DD>Before dimension reduction, the program must calculate a
+pooled covariance matrix by averaging the matrices of the
+various agents of deposition.  By default, an unweighted 
+average is used.  This flag instructs the program to use
+a randomly-weighted average. (C version only.)
+
+<P>
+ </DD>
+<DT><STRONG><TT>-w i</TT></STRONG></DT>
+<DD>Use only column i of data in .cnt file.
+
+<P>
+ </DD>
+<DT><STRONG><TT>-v</TT></STRONG></DT>
+<DD>Toggle verbose mode.  Default: Off. (C version only.)</DD>
+</DL>
+The program uses the method of maximum likelihood to estimate the
+following parameters: 
+<DL>
+<DT><STRONG>
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>}</STRONG></DT>
+<DD>Think of kappa as the number of animals originally contributed
+to the assemblage.  In fact, <I>K</I>, is the number originally contributed and
+  kappa is the expected value of <I>K</I>.  In practice, an estimate of 
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>} is
+  an estimate of <I>K</I> with a conservative confidence interval.
+
+<P>
+ </DD>
+<DT><STRONG>
+<!-- MATH
+ $\{\hbox{beta}\}$
+ -->
+{<I>beta</I>}</STRONG></DT>
+<DD>The intensity of attrition.  Skeletal part <I>i</I> survives
+  attrition with probability 
+<!-- MATH
+ $\exp[-\{\hbox{beta}\}s_i]$
+ -->
+exp[- {<I>beta</I>}<I>s</I><SUB>i</SUB>] where <I>s</I><SUB>i</SUB> measures the
+  sensitivity of part <I>i</I> to attrition.  The sensitivity measure is 
+<!-- MATH
+ $s_i =
+A/d_i$
+ -->
+<I>s</I><SUB>i</SUB> = <I>A</I>/<I>d</I><SUB>i</SUB>, where <I>d</I><SUB>i</SUB> is the density of part <I>i</I> (as given in the .bdf file)
+  and <I>A</I> is a constant of proportionality.  By default, <I>A</I> is chosen so that
+  when 
+<!-- MATH
+ $\{\hbox{beta}\}=1$
+ -->
+{<I>beta</I>} = 1, half the bones in a complete skeleton will survive.
+  Alternatively, <I>A</I> can be set using the <TT>-D</TT> option (see above).
+
+<P>
+ </DD>
+<DT><STRONG>
+<!-- MATH
+ $\{\hbox{alpha}\}$
+ -->
+{<I>alpha</I>}</STRONG></DT>
+<DD>A vector whose <I>i</I>'th entry, 
+<!-- MATH
+ $\{\hbox{alpha}\}_i$
+ -->
+{<I>alpha</I>}<SUB>i</SUB>, is the fraction of the
+assemblage representing contributions by the <I>i</I>'th agent of
+deposition.  Since the entries of alpha must sum to unity, there are
+<I>j</I> 
+<!-- MATH
+ $\{\hbox{alpha}\}$
+ -->
+{<I>alpha</I>} parameters to estimate when the number of agents is <I>j</I> + 1.
+If only one agent is specified, no 
+<!-- MATH
+ $\{\hbox{alpha}\}$
+ -->
+{<I>alpha</I>} parameters are estimated.</DD>
+</DL>
+
+<P>
+When the <TT>-a</TT> flag is set, 
+<!-- MATH
+ $\{\hbox{beta}\}$
+ -->
+{<I>beta</I>} is not estimated.
+
+<P>
+
+<H1><A NAME="SECTION00440000000000000000">
+3.4 Examples</A>
+</H1>
+
+<P>
+Given data files such as those in the toy directory of this distribution,
+
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>} and 
+<!-- MATH
+ $\{\hbox{alpha}\}_0$
+ -->
+{<I>alpha</I>}<SUB>0</SUB> can be estimated with the C version of the software by
+typing:
+<PRE>
+
+  abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+</PRE>
+Using the command-line interface of the Java version, you would type
+<PRE>
+
+  java Abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+</PRE>
+This produces:
+<PRE>
+
+  #Cmd line: abcml toy.bdf home.cfg kill.cfg toy.cnt -a
+  #Assuming that attrition is absent.
+  #Output is                  : not verbose
+  #Number of agents           : 2
+  #Number of parameters       : 2
+  #Number of skeletal parts   : 2
+  #Sensitivity to attrition   : 0.28084047551266139164 / density
+  #Initial parameter vector is: fixed
+  #F mean gives equal weight to each agent
+  #
+  ### Dataset 1
+  #Initial params: kappa=1074 alpha[0]=0.5
+  #Using 2 / 2 dimensions.
+    rowlbl  mni        kappa     alpha[0]     alpha[1]        ChiSq
+  Estimate  537   997.356763     0.405506     0.594494     0.001209
+    StdErr  ***    35.503345     0.028033          ***          ***
+  
+  # Residuals:
+  #label                 y           mu         y-mu            Z
+  #Skull               537   536.376116     0.623884     0.026938
+  #Femur               942   940.810160     1.189840     0.033215
+  #
+  ### Dataset 2
+  #Initial params: kappa=1098 alpha[0]=0.5
+  #Using 2 / 2 dimensions.
+  # rowlbl  mni        kappa     alpha[0]     alpha[1]        ChiSq
+  Estimate  549  1031.067762     0.420381     0.579619     0.001166
+    StdErr  ***    36.098974     0.027674          ***          ***
+  
+  # Residuals:
+  #label                 y           mu         y-mu            Z
+  #Skull               549   548.370883     0.629117     0.026865
+  #Femur               983   981.812260     1.187740     0.032386
+</PRE>
+The first few lines of output describe the options in effect, and I
+will discuss these in a moment.  The remaining lines give estimates
+for each of the two data sets in file toy.cnt.  The columns of output
+may include any or all of the following:  
+<DL>
+<DT><STRONG>mni</STRONG></DT>
+<DD>Minimum number of individuals, a crude (and badly biased) measure of
+the number of animals contributing to an assemblage.
+<P>
+ </DD>
+<DT><STRONG>kappa</STRONG></DT>
+<DD>maximum likelihood estimator (MLE) of 
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>} (defined above)
+
+<P>
+ </DD>
+<DT><STRONG>alpha[i]</STRONG></DT>
+<DD>MLE of the fraction of 
+<!-- MATH
+ $\{\hbox{alpha}\}_i$
+ -->
+{<I>alpha</I>}<SUB>i</SUB> (defined above)
+
+<P>
+ </DD>
+<DT><STRONG>beta</STRONG></DT>
+<DD>MLE of 
+<!-- MATH
+ $\{\hbox{beta}\}$
+ -->
+{<I>beta</I>}, the intensity of attrition (defined above).
+
+<P>
+ </DD>
+<DT><STRONG>ChiSq</STRONG></DT>
+<DD>Measures how well the model fits the data.  When the model fits well,
+ChiSq is small.  It is calculated as
+
+<!-- MATH
+ \begin{displaymath}
+\hbox{ChiSq} = (y - \{\hbox{mu}\})' C^{-1}  (y - \{\hbox{mu}\})
+\end{displaymath}
+ -->
+
+<P></P><DIV ALIGN="CENTER">
+<I>ChiSq</I> = (<I>y</I> - {<I>mu</I>})'<I>C</I><SUP>-1</SUP>(<I>y</I> - {<I>mu</I>})
+</DIV><P></P>
+where <I>y</I> is the vector of bone counts, 
+<!-- MATH
+ $\{\hbox{mu}\}$
+ -->
+{<I>mu</I>} is its expectation under the
+model, and <I>C</I> is the covariance matrix.  In practice, it is usually
+impossible to invert the full matrix <I>C</I>, so the dimension of this problem is
+reduced by principal components analysis before this calculation is done.  The
+resulting statistic is approximately Chi-squared, with degrees of freedom
+equal to the number of dimensions in the reduced version of <I>C</I>.  The number of
+dimensions is printed out just before the estimates.  Since the ChiSq
+statistic is only approximately Chi-squared, it is best to test hypotheses
+using a sampling distribution inferred from computer simulations.  For this
+purpose, use abcsim to generate simulated data sets, and then analyze this
+simulated data using abcml.
+
+<P>
+ </DD>
+<DT><STRONG>lnL</STRONG></DT>
+<DD>The natural log of likelihood.  This is not a good measure of fit to
+the model because the analysis is carried out using principal
+components rather than the raw counts of skeletal parts.  Each
+analysis generates its own principal components, so the lnL values
+from different analyses may not be comparable.  The ChiSq statistic is
+a more useful measure of goodness of fit.</DD>
+</DL>
+These columns do not always appear.  Their appearance is controlled by
+command line arguments or by the graphical interface.
+
+<P>
+In the example above, the estimates of 
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>} are close to 1000 as they
+should be, since 1000 animals contribute to both of the simulated data sets in
+file toy.cnt.  The values listed under alpha[0] and alph[1] are estimates of
+parameters 
+<!-- MATH
+ $\{\hbox{alpha}\}_0$
+ -->
+{<I>alpha</I>}<SUB>0</SUB> and 
+<!-- MATH
+ $\{\hbox{alpha}\}_1$
+ -->
+{<I>alpha</I>}<SUB>1</SUB>, which measure the contributions of the
+two agents of deposition that were specified when the program was run:
+home.cfg and kill.cfg.  In the simulations that generated these data,
+
+<!-- MATH
+ $\{\hbox{alpha}\}_0=0.4$
+ -->
+{<I>alpha</I>}<SUB>0</SUB> = 0.4 and 
+<!-- MATH
+ $\{\hbox{alpha}\}_1=0.6$
+ -->
+{<I>alpha</I>}<SUB>1</SUB> = 0.6.  
+<!-- MATH
+ $\{\hbox{kappa}\}$
+ -->
+{<I>kappa</I>} is also close to its simulation
+value of 1000.
+
+<P>
+In some cases, the agent of deposition will not be in doubt and we are
+interested only in the number of animals represented and in level of
+attrition.  In such cases, list only a single .cfg file.
+
+<P>
+
+<H1><A NAME="SECTION00450000000000000000">
+3.5 How to make the method fail</A>
+</H1>
+
+<P>
+
+<OL>
+<LI>The method will fail when the number of parameters exceeds the number
+of skeletal parts.  It may appear that this is the case in the example
+above, since the output lists 4 values but there are only 2 skeletal
+parts.  But there are really only two independent parameters here.
+alpha[0] and alpha[1] only count as one parameter, since alpha[1] is
+equal to 1-alpha[0].  The likelihood isn't a parameter at all, but
+rather a measure of goodness of fit.  Thus, we really have just 2
+parameters here.  Had I failed to give the <TT>-a</TT> flag, however, the
+program would have tried to estimate beta.  When this happens, the program
+notices and generates an error message.
+
+<P>
+ </LI>
+<LI>The method will fail if there are several agents of deposition, one of
+which has only a single configuration.</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00460000000000000000">
+3.6 Notes on the implementation</A>
+</H1>
+
+<P>
+Parameters are estimated using the method of maximum likelihood.  The details
+of the method can be found in <A
+ HREF="main.html#Rogers:JAS-27-111">Rogers (2000a)</A>.  To find parameter
+values that maximize the likelihood, the current computer program uses the
+downhill simplex method of Nelder and Mead, as implemented by
+<A
+ HREF="main.html#Press:NRC-92">Press <I>et&nbsp;al.</I> (1992)</A>.  This algorithm is among the least efficient available,
+but it is simple and easy to implement.  If this program turns out to have
+wide interest, it will be worth implementing a more efficient maximization
+routine.
+
+<P>
+
+<H1><A NAME="SECTION00470000000000000000"></A><A NAME="451"></A><BR>
+3.7 ABCSIM
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00471000000000000000"></A><A NAME="453"></A><BR>
+ABCSIM Documentation File
+</H2>
+
+<P>
+Abcsim is a program that generates one or more simulated archeological
+data sets using data from input files and from the command line.  It
+requires the following input files.
+
+<P>
+
+<OL>
+<LI>A bone definition file, whose name ends with .bdf.  This file
+describes the characteristics of the skeletal parts to be analyzed.
+
+<P>
+ </LI>
+<LI>Two or more agent definition files, each having a name ending with
+.cfg.  Each of these files describes an agent of deposition.
+
+<P></LI>
+</OL>
+
+<P>
+The format of these files is described in <EM> files</EM>.
+
+<P>
+In addition, the program recognizes the following command line
+options:
+
+<P>
+ 
+<DL>
+<DT><STRONG><TT> -a x,x,...,x</TT></STRONG></DT>
+<DD><A NAME="484"></A>
+<BR>
+Sets the vector of alpha values to the comma-separated string of
+numbers given as an argument.  alpha<TT> [</TT>i<TT> ]</TT> is the fraction of the
+assemblage attributable to the i'th agent of deposition.  By default,
+all the entries of alpha have the same value.
+<P>
+ </DD>
+<DT><STRONG><TT> -b x</TT></STRONG></DT>
+<DD><A NAME="485"></A>
+<BR>
+Set beta, the attrition parameter.  This determines how strongly the
+simulated assemblages will be affected by attrition.  When <TT> beta=0</TT>,
+no bones are lost to attrition.  When <TT> beta=1</TT>, half the bones in a
+complete skeleton would be lost.  By default, <TT> beta=0</TT> so that no
+bones are lost.
+
+<P>
+ </DD>
+<DT><STRONG><TT> -K x</TT></STRONG></DT>
+<DD><A NAME="486"></A>
+<BR>
+Set number of animals in assemblage. Def: 100
+
+<P>
+ </DD>
+<DT><STRONG><TT> -n x</TT></STRONG></DT>
+<DD><A NAME="487"></A>
+<BR>
+Set number of simulated datasets. Def: 1
+
+<P></DD>
+</DL>
+
+<P>
+For example, to generate two data sets using the input files in the
+toy directory, and with <TT> beta=.3</TT>, type:
+<PRE>
+
+  abcsim toy.bdf home.cfg kill.cfg -n 2 -b 0.3
+</PRE>
+
+<P>
+This generates two random data sets, which are written to output in
+.cnt format.  Here is a sample set of output:
+<PRE>
+
+    2 #number of parts
+    2 #number of data sets
+  #label              DS0  DS1
+  Skull                37   49
+  Femur                88   84
+</PRE>
+
+<P>
+The simulations are done by generating <TT> alpha[i]*K</TT> animals from
+agent <TT> i</TT>.  Each animal is generated by choosing a configuration with
+the probabilities given in the relevant .cfg file, and then adding the
+relevant skeletal parts to the data set.  Then, each skeletal part is
+exposed to attrition.  A skeletal part of type <TT> j</TT> survives attrition
+with independent probability
+<PRE>
+
+     exp(-beta*s[j])
+</PRE>
+
+<P>
+where <TT> s[i]</TT> is the sensitivity of the jth skeletal part and is
+proportional to the reciprocal of the density of this skeletal part,
+as given in the .bdf file.  The constant of proportionality is
+adjusted so that on average, half the bones in a complete skeleton
+would survive when <TT> beta=1</TT>.
+
+<H1><A NAME="SECTION00480000000000000000"></A><A NAME="565"></A><BR>
+3.8 CPLCFG
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00481000000000000000"></A><A NAME="567"></A><BR>
+CPLCFG Documentation File
+</H2>
+
+<P>
+Cplcfg finds the complement of a .cfg with respect to the number of
+bones in a live animal.  If <EM> home.cfg</EM> describes the bones that are
+transported home, then cplcfg can be used to calculate a description
+of the bones that were not transported.
+<PRE>
+
+  Usage: cplcfg filename.bdf filename.cfg
+</PRE>
+
+<P>
+where <EM> filename.bdf</EM> is a bone definition file (in .bdf format) and
+<EM> filename.cfg</EM> is an agent configuration file (in .cfg format).  The
+output is another .cfg file.  Given this .bdf file:
+<PRE>
+
+  #################### toy.bdf #####################################
+  2   #number of parts
+  #label          live    density
+  Skull           1       0.49
+  Femur           2       0.37
+</PRE>
+
+<P>
+and this .cfg file:
+<PRE>
+
+  #################### home.cfg ##################################
+  2  #number of parts
+  5   #number of configurations
+  #
+  #probabilities of configurations:
+                0.5   0.2   0.15    0.1    0.05
+  #
+  #Configurations:
+  #label 
+  Skull         0     0     1       1      1
+  Femur         1     2     2       1      0
+</PRE>
+
+<P>
+the following command:
+<PRE>
+
+  cplcfg toy.bdf home.cfg
+</PRE>
+
+<P>
+will produce the following output:
+<PRE>
+
+       2  # number of parts
+       5  # number of configurations
+  #Probabilities of configurations are proportional to:
+                     10 4 3 2 1
+  #label
+  Skull              1  1  0  0  0
+  Femur              1  0  0  1  2
+</PRE>
+
+<P>
+which also in the form of a .cfg file.  Note the configurations in the
+new .cfg file and those of the old one each sum to produce the number
+of bones in a live animal, as given by <EM> toy.bdf</EM>.  Thus, if
+<EM> home.cfg</EM> describes the number of bones brought home from a kill
+site, then cplcfg tells us the number that were left at the kill site.
+
+<H1><A NAME="SECTION00490000000000000000"></A><A NAME="608"></A><BR>
+3.9 MAU2CFG
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00491000000000000000"></A><A NAME="610"></A><BR>
+MAU2CFG Documentation File
+</H2>
+
+<P>
+Agents of deposition can be described in either of two formats.  The
+.mau file format divides the number of each skeletal part by the
+number of that part in a living animal, and the .cfg uses raw counts.
+Many published data are .mau format, but the other programs in this
+package require .cfg format.  Thus, it is often necessary to translate
+from .mau to .cfg and this program does that job.  mau2cfg must also
+read a file in .bdf format, which describes the skeletal parts of
+living animals.  See <EM> files</EM> for descriptions of these formats.
+<PRE>
+
+  Usage: mau2cfg filename.bdf filename.mau
+</PRE>
+
+<P>
+where <EM> filename.bdf</EM> is the bone definition file and <EM> filename.mau</EM>
+the .mau file.  These files must have extensions .bdf and .mau,
+respectively, but the filenames are otherwise arbitrary.
+
+<P>
+The program's output is in the form of a .cfg file.
+
+<H1><A NAME="SECTION004100000000000000000"></A><A NAME="631"></A><BR>
+3.10 TABCFG
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION004101000000000000000"></A><A NAME="633"></A><BR>
+TABCFG Documentation File
+</H2>
+
+<P>
+Tabcfg is a program that tabulates configurations.  It reads a .cfg
+file and its output is in the form of a .cfg file (to find about .cfg
+files, see <EM> files</EM>).  It examines the configurations in its input
+and eliminates duplicates.  For example, consider the following 
+file, named <EM> small.cfg</EM>:
+<PRE>
+
+  ############## small.cfg #######################################
+  2   #number of parts
+  5   #number of configurations
+  #
+  #probabilities of configurations:
+                10  4  3   2   1
+  #
+  #Configurations:
+  #label                
+  Skull         0   0  1   1   1
+  Femur         1   1  2   2   0
+</PRE>
+
+<P>
+The 1st and 2nd configurations are identical as are the 2nd and 3rd.
+Running this through tabcfg produces the following output, which is
+also in the form of a .cfg file:
+<PRE>
+
+  #                                   TABCFG
+  #                          Tabulate Configurations
+  #                             by Alan R. Rogers
+  #                                Version 0.10
+  #                         Type `tabcfg -- ' for help
+  
+  #Cmd line: tabcfg small.cfg
+  #Configured agent from file small.cfg
+  #Input file: small.cfg
+       2  # number of parts
+       3  # number of configurations
+  #Probabilities of configurations are proportional to:
+                     14 5 1
+  #label
+  Skull              0  1  1
+  Femur              1  2  0
+  
+The new file contains the same configurations as the old one, but
+now each configuration is unique.  The probability of the i'th
+configuration in the new file is the sum of the probabilities
+corresponding to that configuration in the old file.   The new .cfg
+file is smaller and easier to manipulate than the old one.  Using the
+new, shorter, .cfg file as input to abcml or abcsim will generate
+precisely the same output, but with some savings in computer time.
+</PRE>
+
+<P>
+
+<P>
+<H2><A NAME="SECTIONREF">Bibliography</A>
+</H2>
+
+<DL COMPACT>
+<DT><A NAME="Binford:NE-78">
+Binford, L.&nbsp;R. (1978).
+</A>
+<DD> <I>Nunamiut Ethnoarchaeology</I>.
+<BR> New York: Academic Press.
+
+<BR>
+<P>
+<DT><A NAME="Bunn:JAA-7-412">
+Bunn, H.&nbsp;T., Bartram, L.&nbsp;E. and Kroll, E.&nbsp;M. (1988).
+</A>
+<DD> Variability in bone assemblage formation from Hadza hunting,
+  scavenging, and carcass processing.
+<BR> <I>Journal of Anthropological Archaeology</I> <B>7</B>, 412-457.
+
+<BR>
+<P>
+<DT><A NAME="Marean:JAS-19-101">
+Marean, C.&nbsp;W., Spencer, L.&nbsp;M., Blumenschine, R.&nbsp;J. and Capaldo, S.&nbsp;D. (1992).
+</A>
+<DD> Captive hyaena bone choice and destruction, the schlepp effect and
+  Olduvai archaeofaunas.
+<BR> <I>Journal of Archaeological Science</I> <B>19</B>, 101-121.
+
+<BR>
+<P>
+<DT><A NAME="O'Connell:JAR-44-113">
+O'Connell, J.&nbsp;F., Hawkes, K. and Blurton&nbsp;Jones, N. (1988).
+</A>
+<DD> Hadza hunting, butchering, and bone transport and their
+  archaeological implications.
+<BR> <I>Journal of Anthropological Research</I> <B>44</B>, 113-161.
+
+<BR>
+<P>
+<DT><A NAME="Perkins:SA-219-97">
+Perkins, D. and Daly, P. (1968).
+</A>
+<DD> A hunter's village in neolithic Turkey.
+<BR> <I>Scientific American</I> <B>219</B>, 97-106.
+
+<BR>
+<P>
+<DT><A NAME="Press:NRC-92">
+Press, W.&nbsp;H., Teukolsky, S.&nbsp;A., Vetterling, W.&nbsp;T. and Flannery, B.&nbsp;P. (1992).
+</A>
+<DD> <I>Numerical Recipes in C: The Art of Scientific Computing</I>.
+<BR> 2nd edition. New York: Cambridge University Press.
+
+<BR>
+<P>
+<DT><A NAME="Rogers:JAS-27-111">
+Rogers, A.&nbsp;R. (2000a).
+</A>
+<DD> Analysis of bone counts by maximum likelihood.
+<BR> <I>Journal of Archaeological Science</I> <B>27</B>, 111-125.
+
+<BR>
+<P>
+<DT><A NAME="Rogers:AA-00-x">
+Rogers, A.&nbsp;R. (2000b).
+</A>
+<DD> On equifinality in faunal analysis.
+<BR> <I>American Antiquity</I> In press.
+
+<BR>
+<P>
+<DT><A NAME="Rogers:JAS-27-635">
+Rogers, A.&nbsp;R. (2000c).
+</A>
+<DD> On the value of soft bones in faunal analysis.
+<BR> <I>Journal of Archaeological Science</I> In press.
+
+<BR>
+<P>
+<DT><A NAME="Rogers:JAS-00">
+Rogers, A.&nbsp;R. and Broughton, J.&nbsp;M. (2000).
+</A>
+<DD> Selective transport of animal parts by ancient hunters: A new
+  statistical method and an application to the Emeryville Shellmound fauna.
+<BR> Submitted for publication.
+
+<BR>
+<P>
+<DT><A NAME="White:AA-19-254">
+White, T.&nbsp;E. (1954).
+</A>
+<DD> Observations on the butchering technique of some aboriginal peoples:
+  Nos.&nbsp;3, 4, 5, and 6.
+<BR> <I>American Antiquity</I> <B>19</B>, 254-264.
+
+<BR>
+<P>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00600000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Analysis of Bone Counts by Maximum Likelihood: A Package of
+Computer Programs</STRONG><P>
+This document was generated using the
+<A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.1 release (March 30, 1999)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-antialias_text -no_math -html_version 3.2,math -show_section_numbers -dir ../html -split +0 -toc_depth 3 -no_navigation main</TT>
+<P>
+The translation was initiated by  on 2000-10-26<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot13">... Rogers</A><A NAME="foot13"
+ HREF="main.html#tex2html1"><SUP>1</SUP></A>
+<DD>Dept of Anthropology, University of Utah,
+Salt Lake City 84112. rogers@anthro.utah.edu
+
+</DL><BR><HR>
+<ADDRESS>
+<I></I>
+<BR><I>2000-10-26</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,9 @@
+f := proc(x,y)
+  -2*(x-1)^2 - 3*(y-2)^2 - (x-1)*(y-2);
+   end;
+
+m := subs(x=1,y=2,
+     matrix(2,2,[-diff(f(x,y),x,x), -diff(f(x,y),x,y),
+                 -diff(f(x,y), y,x), -diff(f(x,y), y,y)]));
+
+

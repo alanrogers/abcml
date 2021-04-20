@@ -1,0 +1,19 @@
+MAU2CFG Documentation File
+    Agents of deposition can be described in either of two formats.
+    The .mau file format divides the number of each skeletal part by
+    the number of that part in a living animal, and the .cfg uses
+    raw counts. Many published data are .mau format, but the other
+    programs in this package require .cfg format. Thus, it is often
+    necessary to translate from .mau to .cfg and this program does
+    that job. mau2cfg must also read a file in .bdf format, which
+    describes the skeletal parts of living animals. See files for
+    descriptions of these formats.
+
+      Usage: mau2cfg filename.bdf filename.mau
+
+    where filename.bdf is the bone definition file and filename.mau
+    the .mau file. These files must have extensions .bdf and .mau,
+    respectively, but the filenames are otherwise arbitrary.
+
+    The program's output is in the form of a .cfg file.
+

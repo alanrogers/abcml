@@ -1,0 +1,75 @@
+=head1 Documentation files
+
+The C<abcml> documentation files include:
+
+=over 10
+
+=item intro
+
+This file
+
+=item files
+
+Describes input file formats
+
+=item abcml
+
+Estimation program
+
+=item abcsim
+
+Simulation program
+
+=item gnaw
+
+Apply attrition to an assemblage.
+
+=item tabcfg
+
+Condense a .cfg file
+
+=item mau2cfg
+
+Convert from .mau to .cfg format
+
+=item cplcfg
+
+Find complement of a .cfg file
+
+=item wgtcfg
+
+Weight configurations by energetic value net energetic cost of transport.
+
+=back
+
+Each documentation file is provided in several formats:
+
+=over 10
+
+=item C<pod>
+
+Perl's "pod" format.   Pod is a very simple text formatting language
+that can be translated automatically into the other formats listed
+here for documentation files.  Files in this format are collected in
+the doc/pod directory and have suffix .pod.
+
+=item C<txt>
+
+Plain text format.  These files are collected in the doc/txt directory
+and have suffix .txt.
+
+=item C<tex>
+
+LaTeX format.  To view these files, you must use the LaTeX typesetting
+program.  These files are collected in the doc/tex directory and have
+suffix .tex.
+
+=item C<html>
+
+This is the format understood by net browsers such as Netscape and
+Internet Explorer.  These files are collected in the doc/html
+directory and have suffix .html (on Mac and unix-like systems) or .htm
+(on Microsoft systems).
+
+=back
+

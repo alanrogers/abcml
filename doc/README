@@ -1,0 +1,12 @@
+This directory contains documentation for ABCML.  The various
+subdirectories contain the same documentation files in different
+formats:
+
+ SUBDIRECTORY  FORMAT
+ pod           Perl's pod format.   The files in this subdirectory are
+               translated to produce the files in the other
+               subdirectories. 
+ txt           Plain text format.
+ latex         LaTeX format.  For use with the LaTeX typesetting
+               system.
+ html          Html format.  For use with web browsers.

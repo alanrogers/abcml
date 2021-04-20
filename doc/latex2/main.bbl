@@ -1,0 +1,67 @@
+\begin{thebibliography}{11}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[Binford(1978)]{Binford:NE-78}
+Binford, L.~R. (1978).
+\newblock \emph{Nunamiut Ethnoarchaeology}.
+\newblock New York: Academic Press.
+
+\bibitem[Bunn \emph{et~al.}(1988)Bunn, Bartram and Kroll]{Bunn:JAA-7-412}
+Bunn, H.~T., Bartram, L.~E. and Kroll, E.~M. (1988).
+\newblock Variability in bone assemblage formation from {H}adza hunting,
+  scavenging, and carcass processing.
+\newblock \emph{Journal of Anthropological Archaeology} \textbf{7}, 412--457.
+
+\bibitem[Marean \emph{et~al.}(1992)Marean, Spencer, Blumenschine and
+  Capaldo]{Marean:JAS-19-101}
+Marean, C.~W., Spencer, L.~M., Blumenschine, R.~J. and Capaldo, S.~D. (1992).
+\newblock Captive hyaena bone choice and destruction, the schlepp effect and
+  {O}lduvai archaeofaunas.
+\newblock \emph{Journal of Archaeological Science} \textbf{19}, 101--121.
+
+\bibitem[O'Connell \emph{et~al.}(1988)O'Connell, Hawkes and
+  Blurton~Jones]{O'Connell:JAR-44-113}
+O'Connell, J.~F., Hawkes, K. and Blurton~Jones, N. (1988).
+\newblock Hadza hunting, butchering, and bone transport and their
+  archaeological implications.
+\newblock \emph{Journal of Anthropological Research} \textbf{44}, 113--161.
+
+\bibitem[Perkins and Daly(1968)]{Perkins:SA-219-97}
+Perkins, D. and Daly, P. (1968).
+\newblock A hunter's village in neolithic {T}urkey.
+\newblock \emph{Scientific American} \textbf{219}, 97--106.
+
+\bibitem[Press \emph{et~al.}(1992)Press, Teukolsky, Vetterling and
+  Flannery]{Press:NRC-92}
+Press, W.~H., Teukolsky, S.~A., Vetterling, W.~T. and Flannery, B.~P. (1992).
+\newblock \emph{Numerical Recipes in {C}: The Art of Scientific Computing}.
+\newblock 2nd edition. New York: Cambridge University Press.
+
+\bibitem[Rogers(2000{\natexlab{a}})]{Rogers:JAS-27-111}
+Rogers, A.~R. (2000{\natexlab{a}}).
+\newblock Analysis of bone counts by maximum likelihood.
+\newblock \emph{Journal of Archaeological Science} \textbf{27}, 111--125.
+
+\bibitem[Rogers(2000{\natexlab{b}})]{Rogers:AA-00-x}
+Rogers, A.~R. (2000{\natexlab{b}}).
+\newblock On equifinality in faunal analysis.
+\newblock \emph{American Antiquity} In press.
+
+\bibitem[Rogers(2000{\natexlab{c}})]{Rogers:JAS-27-635}
+Rogers, A.~R. (2000{\natexlab{c}}).
+\newblock On the value of soft bones in faunal analysis.
+\newblock \emph{Journal of Archaeological Science} In press.
+
+\bibitem[Rogers and Broughton(2000)]{Rogers:JAS-00}
+Rogers, A.~R. and Broughton, J.~M. (2000).
+\newblock Selective transport of animal parts by ancient hunters: A new
+  statistical method and an application to the {E}meryville {S}hellmound fauna.
+\newblock Submitted for publication.
+
+\bibitem[White(1954)]{White:AA-19-254}
+White, T.~E. (1954).
+\newblock Observations on the butchering technique of some aboriginal peoples:
+  {N}os.~3, 4, 5, and 6.
+\newblock \emph{American Antiquity} \textbf{19}, 254--264.
+
+\end{thebibliography}
