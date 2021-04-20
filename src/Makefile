@@ -1,6 +1,9 @@
 #  where the executables should be installed:
 BIN = $(HOME)/bin
 
+# create string defining git version.
+git_version := "$(shell git describe --dirty --always --tags)"
+
 # define your compiler here:
 CC = gcc
 
@@ -24,7 +27,8 @@ WARN1 = -Wall -Wshadow -Wpointer-arith \
 WARN2 = -Wunused
 OPT1 = -DNDEBUG
 #OPT2 = -O
-CFLAGS = -g $(WARN1) $(WARN2) $(OPT1) $(OPT2)
+CFLAGS = -g $(WARN1) $(WARN2) $(OPT1) $(OPT2) \
+ -DGIT_VERSION=\"$(git_version)\"
 
 #
 # There should be no need to make changes below this line

@@ -27,20 +27,22 @@
 #define BUFFSIZE 80
 void header(const char *program, const char *description, FILE *fp)
 {
-  char buff[BUFFSIZE], word[20];
-  int i;
-  
-  centerline(program,fp);
-  centerline(description,fp);
-  centerline("by Alan R. Rogers",fp);
-  sprintf(buff, "Version %s", VERSION);
-  centerline(buff,fp);
-  for(i=0; program[i] != '\0'; i++)
-    word[i] = (char) tolower(program[i]);
-  word[i] = '\0';
-  sprintf(buff,"Type `%s -- ' for help", word);
-  centerline(buff, fp);
-  fflush(fp);
+    char buff[BUFFSIZE], word[20];
+    int i;
+
+    centerline(program,fp);
+    centerline(description,fp);
+    centerline("by Alan R. Rogers",fp);
+    sprintf(buff, "Version %s", VERSION);
+    centerline(buff,fp);
+    sprintf(buff, "Git version %s", GIT_VERSION);
+    centerline(buff,fp);
+    for(i=0; program[i] != '\0'; i++)
+        word[i] = (char) tolower(program[i]);
+    word[i] = '\0';
+    sprintf(buff,"Type `%s -- ' for help", word);
+    centerline(buff, fp);
+    fflush(fp);
 }
 
 /** center a character string on output line */
