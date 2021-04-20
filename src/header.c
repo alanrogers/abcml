@@ -22,7 +22,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#include "version.h"
 #include "header.h"
 #define BUFFSIZE 80
 void header(const char *program, const char *description, FILE *fp)
@@ -33,9 +32,8 @@ void header(const char *program, const char *description, FILE *fp)
     centerline(program,fp);
     centerline(description,fp);
     centerline("by Alan R. Rogers",fp);
-    sprintf(buff, "Version %s", VERSION);
     centerline(buff,fp);
-    sprintf(buff, "Git version %s", GIT_VERSION);
+    sprintf(buff, "Version %s", GIT_VERSION);
     centerline(buff,fp);
     for(i=0; program[i] != '\0'; i++)
         word[i] = (char) tolower(program[i]);
