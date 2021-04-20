@@ -557,8 +557,7 @@ int     dolump(int np, real ** Fmean)
 
 #define MAXCOND 750		/* maximal condition number */
 /* reduce dimension by principal components */
-int     dopc(int np, real ** Fmean)
-{
+int     dopc(int np, real ** Fmean) {
     int     i, j, rd;
     real   x;
     static real *work = NULL, **vptr;
@@ -597,7 +596,7 @@ int     dopc(int np, real ** Fmean)
 
     /* order ndx so that eigval[ndx[i]] is in descending order */
     qsort(ndx, (unsigned) np, sizeof(int),
-	          (int (*)(const void *, const void *)) icmp);
+          (int (*)(const void *, const void *)) icmp);
 
     /* find reduced dimension (rd), copy eigenvectors into reducmat */
     for (rd = 0; rd < np; rd++) {
@@ -637,8 +636,7 @@ int     dopc(int np, real ** Fmean)
     return (rd);		/* return reduced dimension */
 }
 
-int     icmp(int *i, int *j)
-{
+int     icmp(int *i, int *j) {
     if (fabs(eigval[*i]) > fabs(eigval[*j]))
 	return (-1);
     if (fabs(eigval[*i]) < fabs(eigval[*j]))
@@ -652,8 +650,7 @@ Calculate the mean F matrix.  nalpha is the number of agents, but only the
 the complement of the others.
 ****************************************************************/
 void    getFmean(real ** Fmean, struct agent **agent, int dim, real * alpha,
-		 int nalpha)
-{
+		 int nalpha) {
     int     i, j, k;
     real    lastalpha = 1.0;
 
@@ -720,8 +717,7 @@ void    free_reducmat(void)
 }
 
 /* make reducmat an identity matrix so that no reduction takes place */
-void    noreduc(void)
-{
+void    noreduc(void) {
     if (reducmat != NULL)
 	free_reducmat();
     reducmat = id_mat(npart);

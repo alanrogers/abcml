@@ -5,7 +5,7 @@
 
 int attrition=1;
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   struct counts *a;
 
@@ -18,5 +18,5 @@ void main(int argc, char **argv)
 
   pr_counts(a);
   putchar('\n');
-  exit(0);
+  return 0;
 }

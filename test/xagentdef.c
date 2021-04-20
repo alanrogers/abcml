@@ -6,7 +6,6 @@
 
 struct bonedef *alloc_bonedef(void);
 struct agent *alloc_agent(void);
-struct bonedef *read_bonedef(char *fname);
 void pr_bonedef(struct bonedef *b);
 char *copystring(char *a, int size);
 void pr_agent(struct agent *a);
@@ -16,7 +15,7 @@ struct agent *read_agent_cfg(char *fname);;
 /* externals to keep bone.c happy */
 int attrition=1;
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   struct agent *a;
 
@@ -31,5 +30,5 @@ void main(int argc, char **argv)
     error("bad return from configure_agent");
 
   pr_agent(a);
-  exit(0);
+  return 0;
 }

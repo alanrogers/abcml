@@ -11,7 +11,7 @@
 #define DIM 3
 #define TINY 1.0e-6
 
-void main(void)
+int main(void)
 {
   int i,j,k;
   real *eigenval, *work, *f, **mat, **c;
@@ -63,5 +63,5 @@ void main(void)
   free(f);
   free(work);
   free(eigenval);
-  exit(0);
+  return 0;
 }

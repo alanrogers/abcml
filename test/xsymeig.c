@@ -9,9 +9,8 @@
 
 #define NP 10
 #define TINY 1.0e-6
-void error(char *msg);
 
-void main(void)
+int main(void)
 {
   int i,j,k;
   real *eigenval, *work, *f, **mat;
@@ -65,5 +64,5 @@ void main(void)
   free(f);
   free(work);
   free(eigenval);
-  exit(0);
+  return 0;
 }

@@ -21,7 +21,7 @@ real f(real *p)
   return(ans);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   real **C, **Cinv, *p;
   int i;
@@ -48,5 +48,5 @@ void main(int argc, char **argv)
 
   printf("\nEnd of xninfomat");
   putchar('\n');
-  exit(0);
+  return 0;
 }

@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mytypes.h"
-#include "bone.h"
+#include "io.h"
 
-struct bonedef *alloc_bonedef(void);
-struct bonedef *read_bonedef(char *fname);
-void pr_bonedef(struct bonedef *b);
-
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   struct bonedef *b;
+  real scale = 1.0;
 
   if(argc != 2)
   {
@@ -17,8 +14,8 @@ void main(int argc, char **argv)
     exit(1);
   }
 
-  b = read_bonedef(argv[1]);
+  b = read_bonedef(argv[1], &scale);
 
   pr_bonedef(b);
-  exit(0);
+  return 0;
 }
